@@ -6,6 +6,14 @@
 # dotenv files
 .env
 
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# pytest cache
+.pytest_cache/
+
 # User-specific files
 *.rsuser
 *.suo

@@ -1,0 +1,28 @@
+{
+  "server_url": "${MCP_SERVER_URL}",
+  "github_token": "${GITHUB_TOKEN}",
+  "repository": {
+    "owner": "${REPOSITORY_OWNER}",
+    "name": "${REPOSITORY_NAME}"
+  },
+  "settings": {
+    "max_file_size_bytes": 1048576,
+    "max_files_to_process": 500,
+    "recursive_depth": 5,
+    "include_hidden_files": false,
+    "exclude_patterns": [
+      "node_modules",
+      ".git",
+      "__pycache__",
+      "*.pyc",
+      "bin",
+      "obj",
+      "dist",
+      "build"
+    ]
+  },
+  "cache": {
+    "enabled": true,
+    "ttl_seconds": 3600
+  }
+}
