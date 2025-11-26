@@ -230,13 +230,13 @@ async def main():
     )
     parser.add_argument(
         "--owner",
-        default=os.getenv("REPOSITORY_OWNER", "Rohith-Kantipudi"),
-        help="Repository owner"
+        default=os.getenv("REPOSITORY_OWNER"),
+        help="Repository owner (default: from REPOSITORY_OWNER env var)"
     )
     parser.add_argument(
         "--repo",
-        default=os.getenv("REPOSITORY_NAME", "eShop"),
-        help="Repository name"
+        default=os.getenv("REPOSITORY_NAME"),
+        help="Repository name (default: from REPOSITORY_NAME env var)"
     )
     parser.add_argument(
         "--output",
@@ -250,6 +250,14 @@ async def main():
     )
     
     args = parser.parse_args()
+    
+    # Validate required arguments
+    if not args.owner or not args.repo:
+        parser.error(
+            "Repository owner and name are required. "
+            "Provide --owner and --repo arguments or set "
+            "REPOSITORY_OWNER and REPOSITORY_NAME environment variables."
+        )
     
     if args.verbose:
         print(f"Processing repository: {args.owner}/{args.repo}")

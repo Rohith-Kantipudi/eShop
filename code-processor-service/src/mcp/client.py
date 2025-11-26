@@ -223,7 +223,12 @@ class GitHubMCPClient:
                 
                 if data.get("encoding") == "base64":
                     import base64
-                    return base64.b64decode(data["content"]).decode("utf-8")
+                    try:
+                        return base64.b64decode(data["content"]).decode("utf-8")
+                    except (ValueError, UnicodeDecodeError) as e:
+                        raise Exception(
+                            f"Failed to decode base64 content for {path}: {str(e)}"
+                        ) from e
                 
                 # Try download URL for larger files
                 download_url = data.get("download_url")
@@ -292,6 +297,9 @@ class GitHubMCPClient:
                 
                 if data.get("encoding") == "base64":
                     import base64
-                    return base64.b64decode(data["content"]).decode("utf-8")
+                    try:
+                        return base64.b64decode(data["content"]).decode("utf-8")
+                    except (ValueError, UnicodeDecodeError):
+                        return None
                 
                 return data.get("content")

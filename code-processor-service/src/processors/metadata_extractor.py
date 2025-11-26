@@ -238,8 +238,11 @@ class MetadataExtractor:
             if not line or line.startswith("#"):
                 continue
             
-            # Parse requirement line
-            match = re.match(r"^([a-zA-Z0-9_-]+)\s*([<>=!~]+)?\s*(.+)?$", line)
+            # Parse requirement line (limit line length to prevent ReDoS)
+            if len(line) > 500:
+                continue
+            # Use non-greedy matching and atomic pattern for version
+            match = re.match(r"^([a-zA-Z0-9][a-zA-Z0-9_-]{0,100})(?:\s*([<>=!~]{1,3})\s*([^\s#]{1,100}))?", line)
             if match:
                 name = match.group(1)
                 version = match.group(3) if match.group(2) else None

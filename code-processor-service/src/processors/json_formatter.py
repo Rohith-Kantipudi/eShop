@@ -17,6 +17,10 @@ class JsonFormatter:
     analysis results into the final JSON output format.
     """
     
+    # Configuration constants
+    MAX_FILES_IN_OUTPUT = 500
+    MAX_TOP_LEVEL_ITEMS = 20
+    
     def format(
         self,
         repository: dict[str, Any],
@@ -65,12 +69,12 @@ class JsonFormatter:
         """Get top-level directory and file names."""
         items = []
         
-        for file in structure.get("files", [])[:20]:
+        for file in structure.get("files", [])[:self.MAX_TOP_LEVEL_ITEMS]:
             path = file.get("path", "")
             if "/" not in path:
                 items.append(path)
         
-        for directory in structure.get("directories", [])[:20]:
+        for directory in structure.get("directories", [])[:self.MAX_TOP_LEVEL_ITEMS]:
             path = directory.get("path", "")
             if "/" not in path:
                 items.append(path + "/")
@@ -96,7 +100,7 @@ class JsonFormatter:
                 "size": f.get("size", 0),
                 "language": f.get("language")
             }
-            for f in files[:500]  # Limit to 500 files
+            for f in files[:self.MAX_FILES_IN_OUTPUT]
         ]
 
     def _format_dependencies(
