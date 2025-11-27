@@ -1,0 +1,5343 @@
+{
+  "analysis_metadata": {
+    "analyzed_at": "2025-11-27T17:20:44.186226",
+    "repository": {
+      "owner": "Rohith-Kantipudi",
+      "name": "eShop"
+    },
+    "analyzer_version": "1.0.0"
+  },
+  "repository": {
+    "name": "eShop",
+    "owner": "Rohith-Kantipudi",
+    "description": null,
+    "stars": 0,
+    "url": "https://github.com/Rohith-Kantipudi/eShop",
+    "overview": "## Summary The `eShop` repository appears to be a multi-service application designed to simulate or implement an e-commerce platform. It includes multiple APIs (e.g., `Basket.API`, `Catalog.API`) and a code-processing service, suggesting a microservices-based architecture. The repository uses a mix of technologies, including C# for backend services, Python for auxiliary services, and TypeScript for end-to-end (E2E) testing. The presence of infrastructure-related files (e.g., `.config`, `.devcenter`) and CI/CD workflows indicates a focus on automation and deployment.",
+    "services": [
+      {
+        "name": "Basket.API",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json",
+          ".proto"
+        ],
+        "key_files": [
+          "Basket.API.csproj",
+          "Extensions.cs",
+          "ServerCallContextIdentityExtensions.cs",
+          "GlobalUsings.cs",
+          "BasketService.cs",
+          "BasketItem.cs",
+          "CustomerBasket.cs",
+          "Program.cs",
+          "launchSettings.json",
+          "basket.proto",
+          "IBasketRepository.cs",
+          "RedisBasketRepository.cs",
+          "appsettings.Development.json",
+          "appsettings.json"
+        ],
+        "dependencies": [
+          "Aspire.StackExchange.Redis",
+          "Grpc.AspNetCore"
+        ],
+        "type": "service",
+        "file_count": 14,
+        "description": "Basket.API is a microservice designed to manage shopping basket operations in an e-commerce system. It uses gRPC for communication, enabling high-performance, cross-platform interactions. The service integrates with Redis for caching and data storage, ensuring fast and efficient basket data retrieval. It also utilizes RabbitMQ for event-driven communication, subscribing to events via the EventBus. The service is built on .NET 10.0 and follows modern architectural patterns with dependency injection and modular design. It includes basic service defaults and application-specific extensions for streamlined configuration. The service exposes gRPC endpoints for basket-related operations and is optimized for HTTP/2 protocols.",
+        "technologies": [
+          "Aspire.StackExchange.Redis",
+          "Grpc.AspNetCore",
+          "RabbitMQ",
+          "Redis",
+          ".NET 10.0",
+          "HTTP/2",
+          "gRPC",
+          "EventBus"
+        ]
+      },
+      {
+        "name": "Catalog.API",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".http",
+          ".json",
+          ".webp"
+        ],
+        "key_files": [
+          "CatalogApi.cs",
+          "Catalog.API.csproj",
+          "Catalog.API.http",
+          "Catalog.API.json",
+          "Catalog.API_v2.json",
+          "CatalogOptions.cs",
+          "Extensions.cs",
+          "HostEnvironmentExtensions.cs",
+          "GlobalUsings.cs",
+          "CatalogContext.cs",
+          "CatalogContextSeed.cs",
+          "CatalogIntegrationEventService.cs",
+          "ICatalogIntegrationEventService.cs",
+          "CatalogBrand.cs",
+          "CatalogItem.cs",
+          "CatalogServices.cs",
+          "CatalogType.cs",
+          "PaginatedItems.cs",
+          "PaginationRequest.cs",
+          "1.webp"
+        ],
+        "dependencies": [
+          "Asp.Versioning.Http",
+          "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+          "CommunityToolkit.Aspire.OllamaSharp",
+          "Microsoft.EntityFrameworkCore.Tools",
+          "Microsoft.Extensions.ApiDescription.Server",
+          "Aspire.Azure.AI.OpenAI",
+          "Pgvector",
+          "Pgvector.EntityFrameworkCore"
+        ],
+        "type": "api",
+        "file_count": 128,
+        "description": "The Catalog.API is a microservice designed for managing and exposing catalog data in a CRUD-oriented manner. It provides HTTP APIs for retrieving and managing catalog items, supporting batch operations and versioning through OpenAPI specifications. The service integrates with PostgreSQL for data persistence, utilizes Entity Framework Core for ORM, and supports advanced features like vector similarity search via Pgvector. It also incorporates event-driven architecture with RabbitMQ for inter-service communication and supports OpenAI integration for potential AI-driven enhancements. Logging and API versioning are configured for robust monitoring and backward compatibility.",
+        "technologies": [
+          "ASP.NET Core",
+          "Entity Framework Core",
+          "PostgreSQL",
+          "Pgvector",
+          "RabbitMQ",
+          "OpenAPI",
+          "Asp.Versioning.Http",
+          "Azure OpenAI",
+          "Microsoft.Extensions.ApiDescription.Server"
+        ]
+      },
+      {
+        "name": "ClientApp",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json",
+          ".sln",
+          ".xaml"
+        ],
+        "key_files": [
+          "FadeToAnimation.cs",
+          "StoryBoard.cs",
+          "App.xaml",
+          "App.xaml.cs",
+          "AppActions.cs",
+          "AppShell.xaml",
+          "AppShell.xaml.cs",
+          "ClientApp.csproj",
+          "ClientApp.sln",
+          "AddBasketButton.xaml",
+          "AddBasketButton.xaml.cs",
+          "CustomTabbedPage.cs",
+          "ToggleButton.cs",
+          "DoesNotHaveCountConverter.cs",
+          "DoubleConverter.cs",
+          "FirstValidationErrorConverter.cs",
+          "HasCountConverter.cs",
+          "ItemsToHeightConverter.cs",
+          "WebNavigatedEventArgsConverter.cs",
+          "WebNavigatingEventArgsConverter.cs"
+        ],
+        "dependencies": [
+          "Google.Protobuf",
+          "Grpc.Net.Client",
+          "Grpc.Tools",
+          "IdentityModel.OidcClient",
+          "Microsoft.Maui.Controls",
+          "Microsoft.Maui.Controls.Compatibility",
+          "Microsoft.Maui.Controls.Maps",
+          "Microsoft.Extensions.Logging.Debug",
+          "CommunityToolkit.Maui",
+          "IdentityModel",
+          "CommunityToolkit.Mvvm"
+        ],
+        "type": "webapp",
+        "file_count": 76,
+        "description": "The ClientApp microservice is a cross-platform mobile and desktop application built using .NET MAUI. It serves as a client-side application for the eShop ecosystem, providing features such as user authentication, navigation, and interaction with backend services. The app leverages dependency injection for modularity and includes services for managing app environment, location, settings, and themes. It uses Shell for navigation and routing, with predefined routes for views like catalog, basket, and settings. The app integrates with gRPC for communication, supports platform-specific configurations, and adheres to modern UI/UX practices with resource dictionaries for styling.",
+        "technologies": [
+          "Microsoft.NET.Sdk",
+          "Microsoft.Maui.Controls",
+          "Microsoft.Maui.Controls.Compatibility",
+          "Microsoft.Maui.Controls.Maps",
+          "CommunityToolkit.Maui",
+          "Google.Protobuf",
+          "Grpc.Net.Client",
+          "Grpc.Tools",
+          "IdentityModel.OidcClient",
+          "Microsoft.Extensions.Logging.Debug"
+        ]
+      },
+      {
+        "name": "EventBus",
+        "file_extensions": [
+          ".cs",
+          ".csproj"
+        ],
+        "key_files": [
+          "EventBusSubscriptionInfo.cs",
+          "IEventBus.cs",
+          "IEventBusBuilder.cs",
+          "IIntegrationEventHandler.cs",
+          "EventBus.csproj",
+          "IntegrationEvent.cs",
+          "EventBusBuilderExtensions.cs",
+          "GenericTypeExtensions.cs",
+          "GlobalUsings.cs"
+        ],
+        "dependencies": [
+          "Microsoft.Extensions.Options",
+          "Aspire.RabbitMQ.Client"
+        ],
+        "type": "service",
+        "file_count": 9,
+        "description": "The EventBus microservice is designed to facilitate event-driven communication within the eShop application ecosystem. It leverages RabbitMQ for message brokering and utilizes Microsoft.Extensions.Options for configuration management. The service is built on .NET 10.0 and adheres to AOT (Ahead-of-Time) compatibility standards, ensuring optimized performance and reduced runtime overhead. The global usings simplify namespace management, while the inclusion of JSON serialization indicates support for structured data exchange. This microservice acts as a core component for publishing and subscribing to events, enabling decoupled and scalable interactions between different parts of the application.",
+        "technologies": [
+          ".NET 10.0",
+          "Microsoft.Extensions.Options",
+          "Aspire.RabbitMQ.Client",
+          "JSON Serialization"
+        ]
+      },
+      {
+        "name": "EventBusRabbitMQ",
+        "file_extensions": [
+          ".cs",
+          ".csproj"
+        ],
+        "key_files": [
+          "EventBusOptions.cs",
+          "EventBusRabbitMQ.csproj",
+          "GlobalUsings.cs",
+          "RabbitMQEventBus.cs",
+          "RabbitMQTelemetry.cs",
+          "RabbitMqDependencyInjectionExtensions.cs"
+        ],
+        "dependencies": [
+          "Aspire.RabbitMQ.Client"
+        ],
+        "type": "service",
+        "file_count": 6,
+        "description": "The EventBusRabbitMQ service is a microservice responsible for managing event-based communication using RabbitMQ as the message broker. It provides functionality for publishing and subscribing to events, with resilience mechanisms such as retry policies implemented using Polly. The service integrates OpenTelemetry for distributed tracing and telemetry, enabling observability of message flows. It supports dependency injection for seamless integration into .NET applications and uses configuration binding for customizable options like subscription client name and retry count. The service is designed to be AOT-compatible and leverages RabbitMQ.Client for interacting with the RabbitMQ server.",
+        "technologies": [
+          "C#",
+          ".NET",
+          "RabbitMQ",
+          "Polly",
+          "OpenTelemetry",
+          "RabbitMQ.Client",
+          "Microsoft.Extensions.DependencyInjection",
+          "Microsoft.Extensions.Logging"
+        ]
+      },
+      {
+        "name": "HybridApp",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".html",
+          ".json",
+          ".png",
+          ".razor",
+          ".xaml"
+        ],
+        "key_files": [
+          "App.xaml",
+          "App.xaml.cs",
+          "Routes.razor",
+          "_Imports.razor",
+          "GlobalSuppressions.cs",
+          "HybridApp.csproj",
+          "MainPage.xaml",
+          "MainPage.xaml.cs",
+          "MauiProgram.cs",
+          "launchSettings.json",
+          "CatalogJsonContext.cs",
+          "CatalogService.cs",
+          "ProductImageUrlProvider.cs",
+          "chatbot.png",
+          "favicon.png",
+          "index.html"
+        ],
+        "dependencies": [
+          "Microsoft.AspNetCore.Components.WebView.Maui",
+          "Microsoft.Maui.Controls",
+          "Microsoft.Maui.Controls.Compatibility",
+          "Microsoft.Extensions.Http",
+          "Microsoft.Extensions.Logging.Debug"
+        ],
+        "type": "webapp",
+        "file_count": 16,
+        "description": "HybridApp is a cross-platform mobile and desktop application built using .NET MAUI and Blazor. It leverages BlazorWebView to integrate web-based UI components into native applications, enabling seamless hybrid app development. The service supports multiple platforms, including Android, iOS, Mac Catalyst, and Windows, with a shared codebase. It uses dependency injection to configure services like HTTP clients and logging, and includes support for dynamic theming and responsive design through XAML. The app communicates with a backend service (MobileBffHost) for data retrieval and processing, making it suitable for e-commerce or similar applications.",
+        "technologies": [
+          "Microsoft.NET",
+          "MAUI",
+          "Blazor",
+          "XAML",
+          "C#",
+          "Microsoft.AspNetCore.Components.WebView.Maui",
+          "Microsoft.Maui.Controls",
+          "Microsoft.Extensions.Http",
+          "Microsoft.Extensions.Logging.Debug"
+        ]
+      },
+      {
+        "name": "Identity.API",
+        "file_extensions": [
+          ".cs",
+          ".cshtml",
+          ".csproj",
+          ".ico",
+          ".jpg",
+          ".js",
+          ".json",
+          ".jwk",
+          ".png"
+        ],
+        "key_files": [
+          ".gitignore",
+          "Config.cs",
+          "ApplicationDbContext.cs",
+          "GlobalUsings.cs",
+          "Identity.API.csproj",
+          "ApplicationUser.cs",
+          "ErrorViewModel.cs",
+          "Program.cs",
+          "launchSettings.json",
+          "Extensions.cs",
+          "SecurityHeadersAttribute.cs",
+          "EFLoginService.cs",
+          "ILoginService.cs",
+          "IRedirectService.cs",
+          "ProfileService.cs",
+          "RedirectService.cs",
+          "UsersSeed.cs",
+          "_ViewImports.cshtml",
+          "_ViewStart.cshtml",
+          "appsettings.Development.json"
+        ],
+        "dependencies": [
+          "Duende.IdentityServer.AspNetIdentity",
+          "Duende.IdentityServer.EntityFramework",
+          "Duende.IdentityServer.Storage",
+          "Duende.IdentityServer",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+          "Microsoft.AspNetCore.Identity.UI",
+          "Microsoft.EntityFrameworkCore.Tools",
+          "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+          "Microsoft.Web.LibraryManager.Build"
+        ],
+        "type": "service",
+        "file_count": 28,
+        "description": "The Identity.API microservice is responsible for managing user authentication and authorization within the system. It integrates with Duende IdentityServer for OpenID Connect and OAuth 2.0 support, and uses ASP.NET Core Identity for user management. The service includes database migrations, user seeding, and token management with configurable lifetimes. It supports secure storage of user credentials and roles, and provides endpoints for authentication flows. Frontend assets are managed using LibMan and bundling configurations. The service is designed for extensibility and can be customized for production environments.",
+        "technologies": [
+          "ASP.NET Core",
+          "Duende IdentityServer",
+          "Entity Framework Core",
+          "PostgreSQL",
+          "LibMan",
+          "Bootstrap",
+          "jQuery",
+          "JavaScript",
+          "CSS"
+        ]
+      },
+      {
+        "name": "IntegrationEventLogEF",
+        "file_extensions": [
+          ".cs",
+          ".csproj"
+        ],
+        "key_files": [
+          "EventStateEnum.cs",
+          "GlobalUsings.cs",
+          "IntegrationEventLogEF.csproj",
+          "IntegrationEventLogEntry.cs",
+          "IntegrationLogExtensions.cs",
+          "IIntegrationEventLogService.cs",
+          "IntegrationEventLogService.cs",
+          "ResilientTransaction.cs"
+        ],
+        "dependencies": [
+          "Npgsql.EntityFrameworkCore.PostgreSQL"
+        ],
+        "type": "library",
+        "file_count": 8,
+        "description": "The IntegrationEventLogEF microservice is a library designed to facilitate the logging and management of integration events within an application. It uses Entity Framework Core with PostgreSQL as the database provider to persist event logs. The service defines an `IntegrationEventLogEntry` class to represent individual event logs, including metadata such as event type, creation time, and state. It supports serialization of events using JSON with customizable options. The library also provides an extension method to configure the database schema for integration event logs. It is tightly coupled with the EventBus project for handling event-driven communication and ensures reliable event publishing by tracking states like 'NotPublished', 'InProgress', 'Published', and 'PublishedFailed'.",
+        "technologies": [
+          "C#",
+          ".NET",
+          "Entity Framework Core",
+          "PostgreSQL",
+          "JSON"
+        ]
+      },
+      {
+        "name": "OrderProcessor",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json"
+        ],
+        "key_files": [
+          "BackgroundTaskOptions.cs",
+          "GracePeriodConfirmedIntegrationEvent.cs",
+          "Extensions.cs",
+          "GlobalUsings.cs",
+          "OrderProcessor.csproj",
+          "Program.cs",
+          "launchSettings.json",
+          "GracePeriodManagerService.cs",
+          "appsettings.Development.json",
+          "appsettings.json"
+        ],
+        "dependencies": [
+          "Aspire.Npgsql"
+        ],
+        "type": "worker",
+        "file_count": 10,
+        "description": "The OrderProcessor microservice is a background worker service designed to handle order processing tasks within the eShop system. It integrates with a PostgreSQL database for data persistence and uses RabbitMQ for event-driven communication via the EventBus. The service is configured to execute background tasks with customizable grace periods and update intervals, as defined in its configuration files. It leverages .NET 10.0 features, including configuration binding and Ahead-of-Time (AOT) compilation for optimized performance. The service is built with modularity in mind, referencing shared libraries for default service behaviors and RabbitMQ event handling, ensuring scalability and maintainability.",
+        "technologies": [
+          ".NET 10.0",
+          "RabbitMQ",
+          "PostgreSQL",
+          "Aspire.Npgsql",
+          "AOT Compilation"
+        ]
+      },
+      {
+        "name": "Ordering.API",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json"
+        ],
+        "key_files": [
+          "OrderServices.cs",
+          "OrdersApi.cs",
+          "BasketItemExtensions.cs",
+          "Extensions.cs",
+          "LinqSelectExtensions.cs",
+          "OrderingApiTrace.cs",
+          "GlobalUsings.cs",
+          "OrderingContextSeed.cs",
+          "Ordering.API.csproj",
+          "Program.Testing.cs",
+          "Program.cs",
+          "launchSettings.json",
+          "appsettings.Development.json",
+          "appsettings.json"
+        ],
+        "dependencies": [
+          "Asp.Versioning.Http",
+          "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+          "FluentValidation",
+          "FluentValidation.DependencyInjectionExtensions",
+          "Microsoft.EntityFrameworkCore.Tools"
+        ],
+        "type": "api",
+        "file_count": 14,
+        "description": "The Ordering.API microservice is a core component of the eShop system, responsible for managing order-related operations. It provides a RESTful HTTP API with versioning support for handling order creation, updates, and queries. The service integrates with a PostgreSQL database for persistence and uses RabbitMQ for event-driven communication via an event bus. It includes OpenAPI documentation for API discovery and testing, and employs FluentValidation for input validation. The service is built with modular architecture, leveraging MediatR for CQRS patterns and Entity Framework Core for database interactions.",
+        "technologies": [
+          "ASP.NET Core",
+          "Entity Framework Core",
+          "PostgreSQL",
+          "RabbitMQ",
+          "FluentValidation",
+          "MediatR",
+          "OpenAPI",
+          "CQRS",
+          "ProblemDetails",
+          "Asp.Versioning.Http"
+        ]
+      },
+      {
+        "name": "Ordering.Domain",
+        "file_extensions": [
+          ".cs",
+          ".csproj"
+        ],
+        "key_files": [
+          "BuyerPaymentMethodVerifiedDomainEvent.cs",
+          "OrderCancelledDomainEvent.cs",
+          "OrderShippedDomainEvent.cs",
+          "OrderStartedDomainEvent.cs",
+          "OrderStatusChangedToAwaitingValidationDomainEvent.cs",
+          "OrderStatusChangedToPaidDomainEvent.cs",
+          "OrderStatusChangedToStockConfirmedDomainEvent.cs",
+          "OrderingDomainException.cs",
+          "GlobalUsings.cs",
+          "Ordering.Domain.csproj",
+          "Entity.cs",
+          "IAggregateRoot.cs",
+          "IRepository.cs",
+          "IUnitOfWork.cs",
+          "ValueObject.cs"
+        ],
+        "dependencies": [
+          "MediatR",
+          "System.Reflection.TypeExtensions"
+        ],
+        "type": "library",
+        "file_count": 15,
+        "description": "The Ordering.Domain microservice is a domain layer responsible for encapsulating business logic and domain entities related to the ordering functionality in the eShop system. It defines aggregates such as Buyer and Order, domain events, and exceptions to ensure consistency and enforce business rules. The service leverages MediatR for handling domain events and System.Reflection.TypeExtensions for runtime type manipulation. It acts as a foundational library for other layers or services to interact with the ordering domain, ensuring separation of concerns and adherence to DDD principles.",
+        "technologies": [
+          "C#",
+          ".NET 10.0",
+          "MediatR",
+          "System.Reflection.TypeExtensions"
+        ]
+      },
+      {
+        "name": "Ordering.Infrastructure",
+        "file_extensions": [
+          ".cs",
+          ".csproj"
+        ],
+        "key_files": [
+          "BuyerEntityTypeConfiguration.cs",
+          "CardTypeEntityTypeConfiguration.cs",
+          "ClientRequestEntityTypeConfiguration.cs",
+          "OrderEntityTypeConfiguration.cs",
+          "OrderItemEntityTypeConfiguration.cs",
+          "PaymentMethodEntityTypeConfiguration.cs",
+          "GlobalUsings.cs",
+          "ClientRequest.cs",
+          "IRequestManager.cs",
+          "RequestManager.cs",
+          "MediatorExtension.cs",
+          "20230925222426_Initial.Designer.cs",
+          "20230925222426_Initial.cs",
+          "20231021004633_FixOrderitemseqSchema.Designer.cs",
+          "20231021004633_FixOrderitemseqSchema.cs",
+          "20231026091055_Outbox.Designer.cs",
+          "20231026091055_Outbox.cs",
+          "20240106121712_UseEnumForOrderStatus.Designer.cs",
+          "20240106121712_UseEnumForOrderStatus.cs",
+          "OrderingContextModelSnapshot.cs"
+        ],
+        "dependencies": [
+          "Npgsql.EntityFrameworkCore.PostgreSQL"
+        ],
+        "type": "library",
+        "file_count": 24,
+        "description": "The Ordering.Infrastructure microservice is responsible for implementing the persistence layer of the ordering domain in the eShop application. It uses Entity Framework Core with PostgreSQL as the database provider to manage database operations for entities such as Orders, OrderItems, Buyers, PaymentMethods, and CardTypes. The service integrates with MediatR to handle domain events and ensures transactional consistency using IDbContextTransaction. It also supports migration generation for database schema updates. The service references the Ordering.Domain project for domain models and the IntegrationEventLogEF project for event logging.",
+        "technologies": [
+          "C#",
+          ".NET",
+          "Entity Framework Core",
+          "PostgreSQL",
+          "MediatR"
+        ]
+      },
+      {
+        "name": "PaymentProcessor",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json"
+        ],
+        "key_files": [
+          "GlobalUsings.cs",
+          "PaymentOptions.cs",
+          "PaymentProcessor.csproj",
+          "Program.cs",
+          "launchSettings.json",
+          "appsettings.Development.json",
+          "appsettings.json"
+        ],
+        "dependencies": [],
+        "type": "service",
+        "file_count": 7,
+        "description": "The PaymentProcessor microservice is responsible for handling payment-related operations within the eShop system. It integrates with a RabbitMQ-based event bus to subscribe to and process events, specifically the OrderStatusChangedToStockConfirmedIntegrationEvent. The service uses configuration options to manage payment settings, such as whether payments are marked as succeeded. It is built using .NET 10.0 and leverages shared service defaults and event bus abstractions from other eShop components. The service is designed to be lightweight, scalable, and event-driven, ensuring seamless communication with other microservices in the system.",
+        "technologies": [
+          ".NET 10.0",
+          "RabbitMQ",
+          "ASP.NET Core",
+          "Event-Driven Architecture",
+          "Dependency Injection"
+        ]
+      },
+      {
+        "name": "Shared",
+        "file_extensions": [
+          ".cs"
+        ],
+        "key_files": [
+          "ActivityExtensions.cs",
+          "MigrateDbContextExtensions.cs"
+        ],
+        "dependencies": [],
+        "type": "library",
+        "file_count": 2,
+        "description": "The Shared microservice provides utility extensions for handling telemetry and database migrations. It includes methods for tagging exceptions in telemetry traces using OpenTelemetry conventions and facilitates database migrations by integrating with ASP.NET Core's dependency injection system. The service enables tracing for database migrations using OpenTelemetry and supports custom seeding logic for database contexts. It is designed to enhance observability and streamline database initialization processes in distributed systems.",
+        "technologies": [
+          "C#",
+          ".NET",
+          "OpenTelemetry",
+          "ASP.NET Core",
+          "Entity Framework Core"
+        ]
+      },
+      {
+        "name": "WebApp",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json",
+          ".png",
+          ".razor"
+        ],
+        "key_files": [
+          "App.razor",
+          "Routes.razor",
+          "_Imports.razor",
+          "Extensions.cs",
+          "GlobalUsings.cs",
+          "Program.cs",
+          "launchSettings.json",
+          "BasketCheckoutInfo.cs",
+          "BasketItem.cs",
+          "BasketService.cs",
+          "BasketState.cs",
+          "IBasketState.cs",
+          "LogOutService.cs",
+          "OrderingService.cs",
+          "ProductImageUrlProvider.cs",
+          "WebApp.csproj",
+          "appsettings.Development.json",
+          "appsettings.json",
+          "chat.png",
+          "chatbot.png"
+        ],
+        "dependencies": [
+          "Asp.Versioning.Http.Client",
+          "Aspire.Azure.AI.OpenAI",
+          "CommunityToolkit.Aspire.OllamaSharp",
+          "Microsoft.Extensions.ServiceDiscovery.Yarp",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect",
+          "Google.Protobuf",
+          "Grpc.Net.ClientFactory",
+          "Grpc.Tools",
+          "Microsoft.AspNetCore.Components.Web"
+        ],
+        "type": "webapp",
+        "file_count": 20,
+        "description": "The WebApp microservice is a Razor-based web application designed to serve as the frontend for the eShop platform. It integrates with multiple backend services and APIs, including a catalog API for product images, and utilizes service discovery via YARP. The service supports interactive server-side components and leverages OpenID Connect for authentication. It includes logging configurations, session management, and antiforgery protection. The application is built on .NET 10.0, with dependencies on gRPC, OpenAI integration, and HTTP API versioning. It also forwards specific requests to backend services and ensures secure communication through HTTPS redirection and HSTS in production.",
+        "technologies": [
+          "ASP.NET Core",
+          "Razor Components",
+          "YARP",
+          "OpenID Connect",
+          "gRPC",
+          "OpenAI",
+          "HTTP API Versioning",
+          "Microsoft.Extensions",
+          "RabbitMQ",
+          "JSON"
+        ]
+      },
+      {
+        "name": "WebAppComponents",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".css",
+          ".razor"
+        ],
+        "key_files": [
+          "CatalogItem.cs",
+          "CatalogListItem.razor",
+          "CatalogListItem.razor.css",
+          "CatalogSearch.razor",
+          "CatalogSearch.razor.css",
+          "ItemHelper.cs",
+          "CatalogService.cs",
+          "ICatalogService.cs",
+          "IProductImageUrlProvider.cs",
+          "WebAppComponents.csproj",
+          "_Imports.razor"
+        ],
+        "dependencies": [
+          "Microsoft.AspNetCore.Components.Web"
+        ],
+        "type": "library",
+        "file_count": 11,
+        "description": "The WebAppComponents microservice is a Blazor-based web application component library designed to support browser-based platforms. It leverages the Microsoft.AspNetCore.Components.Web package to enable interactive web UI development using Razor components. The project is configured with .NET 10.0 as the target framework, ensuring compatibility with modern .NET features. Nullable reference types and implicit usings are enabled to streamline development and improve code quality. The service is structured to provide reusable components and services for eShop applications, with a focus on modularity and browser compatibility.",
+        "technologies": [
+          "Blazor",
+          ".NET 10.0",
+          "Razor",
+          "Microsoft.AspNetCore.Components.Web"
+        ]
+      },
+      {
+        "name": "WebhookClient",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".css",
+          ".json",
+          ".razor"
+        ],
+        "key_files": [
+          "App.razor",
+          "App.razor.css",
+          "Routes.razor",
+          "_Imports.razor",
+          "AuthenticationEndpoints.cs",
+          "WebhookEndpoints.cs",
+          "Extensions.cs",
+          "GlobalUsings.cs",
+          "Program.cs",
+          "launchSettings.json",
+          "HooksRepository.cs",
+          "WebHookReceived.cs",
+          "WebHooksClient.cs",
+          "WebhookClientOptions.cs",
+          "WebhookData.cs",
+          "WebhookResponse.cs",
+          "WebhookSubscriptionRequest.cs",
+          "WebhookType.cs",
+          "WebhookClient.csproj",
+          "appsettings.Development.json"
+        ],
+        "dependencies": [
+          "Asp.Versioning.Http.Client",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect",
+          "Microsoft.AspNetCore.Components.QuickGrid"
+        ],
+        "type": "webapp",
+        "file_count": 22,
+        "description": "The WebhookClient microservice is a web application designed to handle webhook-related functionalities within the eShop ecosystem. It leverages ASP.NET Core for building a robust and scalable web application. The service integrates with external APIs using the Asp.Versioning.Http.Client library and supports OpenID Connect for authentication. It also utilizes Razor Components for building interactive UI elements and QuickGrid for efficient data grid rendering. The service is configured to handle secure HTTP requests, static files, and interactive server-side rendering. It includes predefined endpoints for authentication and webhook handling, and adheres to service defaults defined in the eShop.ServiceDefaults library.",
+        "technologies": [
+          "ASP.NET Core",
+          "Razor Components",
+          "OpenID Connect",
+          "QuickGrid",
+          "Asp.Versioning.Http.Client"
+        ]
+      },
+      {
+        "name": "Webhooks.API",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json"
+        ],
+        "key_files": [
+          "WebHooksApi.cs",
+          "WebhooksDomainException.cs",
+          "Extensions.cs",
+          "RouteHandlerBuilderExtensions.cs",
+          "GlobalUsings.cs",
+          "WebhooksContext.cs",
+          "OrderStatusChangedToPaidIntegrationEvent.cs",
+          "OrderStatusChangedToPaidIntegrationEventHandler.cs",
+          "OrderStatusChangedToShippedIntegrationEvent.cs",
+          "OrderStatusChangedToShippedIntegrationEventHandler.cs",
+          "OrderStockItem.cs",
+          "ProductPriceChangedIntegrationEvent.cs",
+          "ProductPriceChangedIntegrationEventHandler.cs",
+          "20230925222606_Initial.Designer.cs",
+          "20230925222606_Initial.cs",
+          "WebhooksContextModelSnapshot.cs",
+          "WebhookData.cs",
+          "WebhookSubscription.cs",
+          "WebhookSubscriptionRequest.cs",
+          "WebhookType.cs"
+        ],
+        "dependencies": [
+          "Asp.Versioning.Http",
+          "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+          "Microsoft.EntityFrameworkCore.Tools"
+        ],
+        "type": "api",
+        "file_count": 31,
+        "description": "The Webhooks.API microservice is a part of the eShop system, designed to handle webhook registrations and events. It provides a CRUD HTTP API for managing webhook subscriptions and integrates with RabbitMQ for event-driven communication. The service uses Entity Framework Core with PostgreSQL for database operations and supports API versioning. It includes OpenAPI documentation for easy API exploration and testing, and integrates with an identity service for authentication and authorization. The service is built on .NET 10.0 and follows a modular architecture with shared components and extensions.",
+        "technologies": [
+          ".NET 10.0",
+          "Entity Framework Core",
+          "PostgreSQL",
+          "RabbitMQ",
+          "OpenAPI",
+          "Asp.Versioning.Http",
+          "Microsoft.EntityFrameworkCore.Tools",
+          "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL"
+        ]
+      },
+      {
+        "name": "eShop.AppHost",
+        "file_extensions": [
+          ".cs",
+          ".csproj",
+          ".json"
+        ],
+        "key_files": [
+          "Extensions.cs",
+          "Program.cs",
+          "launchSettings.json",
+          "appsettings.json",
+          "eShop.AppHost.csproj"
+        ],
+        "dependencies": [
+          "Aspire.Hosting.AppHost",
+          "Aspire.Hosting.RabbitMQ",
+          "Aspire.Hosting.Redis",
+          "Aspire.Hosting.PostgreSQL",
+          "Aspire.Hosting.Azure.CognitiveServices",
+          "Aspire.Hosting.Yarp",
+          "CommunityToolkit.Aspire.Hosting.Ollama"
+        ],
+        "type": "service",
+        "file_count": 5,
+        "description": "The eShop.AppHost service is a distributed application host responsible for orchestrating and managing multiple microservices within the eShop ecosystem. It integrates with Redis for caching, RabbitMQ for event-driven messaging, and PostgreSQL for database management, supporting multiple databases such as catalogdb, identitydb, orderingdb, and webhooksdb. The service also leverages YARP for reverse proxy configuration and Azure Cognitive Services for AI capabilities. It includes lifecycle hooks for setting up forwarded headers and supports external HTTP endpoints for microservices like Identity API and Basket API. The service is built using .NET 10.0 and follows a modular architecture with project references to other APIs.",
+        "technologies": [
+          ".NET 10.0",
+          "Redis",
+          "RabbitMQ",
+          "PostgreSQL",
+          "YARP",
+          "Azure Cognitive Services",
+          "Aspire.Hosting",
+          "CommunityToolkit.Aspire.Hosting.Ollama"
+        ]
+      },
+      {
+        "name": "eShop.ServiceDefaults",
+        "file_extensions": [
+          ".cs",
+          ".csproj"
+        ],
+        "key_files": [
+          "AuthenticationExtensions.cs",
+          "ClaimsPrincipalExtensions.cs",
+          "ConfigurationExtensions.cs",
+          "Extensions.cs",
+          "HttpClientExtensions.cs",
+          "OpenApi.Extensions.cs",
+          "OpenApiOptionsExtensions.cs",
+          "eShop.ServiceDefaults.csproj"
+        ],
+        "dependencies": [
+          "Asp.Versioning.Mvc.ApiExplorer",
+          "Microsoft.AspNetCore.OpenApi",
+          "Microsoft.OpenApi",
+          "Scalar.AspNetCore",
+          "Microsoft.AspNetCore.Authentication.JwtBearer",
+          "Microsoft.Extensions.Http.Resilience",
+          "Microsoft.Extensions.ServiceDiscovery",
+          "OpenTelemetry.Exporter.OpenTelemetryProtocol",
+          "OpenTelemetry.Extensions.Hosting",
+          "OpenTelemetry.Instrumentation.AspNetCore",
+          "OpenTelemetry.Instrumentation.GrpcNetClient",
+          "OpenTelemetry.Instrumentation.Http",
+          "OpenTelemetry.Instrumentation.Runtime"
+        ],
+        "type": "library",
+        "file_count": 8,
+        "description": "The eShop.ServiceDefaults is a library that provides foundational configurations and extensions for microservices in the eShop ecosystem. It includes default authentication setup using JWT Bearer tokens, OpenAPI integration for API documentation, and service discovery capabilities. The library also incorporates resilience and HTTP client configuration, enabling robust communication between services. Additionally, it supports OpenTelemetry for distributed tracing, logging, and metrics, ensuring observability. The library is designed to streamline the development of microservices by offering reusable components and configurations, reducing boilerplate code and enhancing maintainability.",
+        "technologies": [
+          "C#",
+          ".NET",
+          "Microsoft.AspNetCore.Authentication.JwtBearer",
+          "Microsoft.Extensions.Http.Resilience",
+          "Microsoft.Extensions.ServiceDiscovery",
+          "OpenTelemetry",
+          "Asp.Versioning.Mvc.ApiExplorer",
+          "Microsoft.AspNetCore.OpenApi",
+          "Microsoft.OpenApi",
+          "Scalar.AspNetCore"
+        ]
+      }
+    ],
+    "connections": [],
+    "patterns": {
+      "total_services": 20,
+      "service_types": {
+        "service": 6,
+        "api": 3,
+        "webapp": 4,
+        "library": 6,
+        "worker": 1
+      },
+      "shared_technologies": {
+        "RabbitMQ": 9,
+        "Redis": 2,
+        ".NET 10.0": 8,
+        "gRPC": 2,
+        "ASP.NET Core": 7,
+        "Entity Framework Core": 7,
+        "PostgreSQL": 8,
+        "OpenAPI": 3,
+        "Asp.Versioning.Http": 3,
+        "Microsoft.Maui.Controls": 2,
+        "Microsoft.Extensions.Logging.Debug": 2,
+        "C#": 7,
+        ".NET": 5,
+        "OpenTelemetry": 3,
+        "Blazor": 2,
+        "JSON": 2,
+        "MediatR": 3,
+        "Razor Components": 2,
+        "YARP": 2,
+        "OpenID Connect": 2
+      }
+    }
+  },
+  "metadata": {
+    "files": [
+      {
+        "path": ".aspire/settings.json",
+        "name": "settings.json",
+        "extension": ".json",
+        "size": 64,
+        "language": "JSON"
+      },
+      {
+        "path": ".config/CredScanSuppressions.json",
+        "name": "CredScanSuppressions.json",
+        "extension": ".json",
+        "size": 228,
+        "language": "JSON"
+      },
+      {
+        "path": ".config/configuration.vs.winget",
+        "name": "configuration.vs.winget",
+        "extension": ".winget",
+        "size": 4412,
+        "language": null
+      },
+      {
+        "path": ".config/configuration.vsCode.winget",
+        "name": "configuration.vsCode.winget",
+        "extension": ".winget",
+        "size": 6158,
+        "language": null
+      },
+      {
+        "path": ".config/tsaoptions.json",
+        "name": "tsaoptions.json",
+        "extension": ".json",
+        "size": 342,
+        "language": "JSON"
+      },
+      {
+        "path": ".devcenter/catalog/definitions/imagedefinition.yaml",
+        "name": "imagedefinition.yaml",
+        "extension": ".yaml",
+        "size": 15,
+        "language": "YAML"
+      },
+      {
+        "path": ".editorconfig",
+        "name": ".editorconfig",
+        "extension": "",
+        "size": 6126,
+        "language": null
+      },
+      {
+        "path": ".gitattributes",
+        "name": ".gitattributes",
+        "extension": "",
+        "size": 2737,
+        "language": null
+      },
+      {
+        "path": ".github/dependabot.yml",
+        "name": "dependabot.yml",
+        "extension": ".yml",
+        "size": 1412,
+        "language": "YAML"
+      },
+      {
+        "path": ".github/workflows/markdownlint-problem-matcher.json",
+        "name": "markdownlint-problem-matcher.json",
+        "extension": ".json",
+        "size": 406,
+        "language": "JSON"
+      },
+      {
+        "path": ".github/workflows/markdownlint.yml",
+        "name": "markdownlint.yml",
+        "extension": ".yml",
+        "size": 573,
+        "language": "YAML"
+      },
+      {
+        "path": ".github/workflows/playwright.yml",
+        "name": "playwright.yml",
+        "extension": ".yml",
+        "size": 1349,
+        "language": "YAML"
+      },
+      {
+        "path": ".github/workflows/pr-validation-maui.yml",
+        "name": "pr-validation-maui.yml",
+        "extension": ".yml",
+        "size": 1043,
+        "language": "YAML"
+      },
+      {
+        "path": ".github/workflows/pr-validation.yml",
+        "name": "pr-validation.yml",
+        "extension": ".yml",
+        "size": 684,
+        "language": "YAML"
+      },
+      {
+        "path": ".gitignore",
+        "name": ".gitignore",
+        "extension": "",
+        "size": 8149,
+        "language": null
+      },
+      {
+        "path": ".markdownlint.json",
+        "name": ".markdownlint.json",
+        "extension": ".json",
+        "size": 972,
+        "language": "JSON"
+      },
+      {
+        "path": ".markdownlintignore",
+        "name": ".markdownlintignore",
+        "extension": "",
+        "size": 80,
+        "language": null
+      },
+      {
+        "path": ".spectral.yml",
+        "name": ".spectral.yml",
+        "extension": ".yml",
+        "size": 1010,
+        "language": "YAML"
+      },
+      {
+        "path": "CODE-OF-CONDUCT.md",
+        "name": "CODE-OF-CONDUCT.md",
+        "extension": ".md",
+        "size": 259,
+        "language": "Markdown"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "name": "CONTRIBUTING.md",
+        "extension": ".md",
+        "size": 2677,
+        "language": "Markdown"
+      },
+      {
+        "path": "Directory.Build.props",
+        "name": "Directory.Build.props",
+        "extension": ".props",
+        "size": 775,
+        "language": null
+      },
+      {
+        "path": "Directory.Build.targets",
+        "name": "Directory.Build.targets",
+        "extension": ".targets",
+        "size": 931,
+        "language": null
+      },
+      {
+        "path": "Directory.Packages.props",
+        "name": "Directory.Packages.props",
+        "extension": ".props",
+        "size": 7374,
+        "language": null
+      },
+      {
+        "path": "LICENSE",
+        "name": "LICENSE",
+        "extension": "",
+        "size": 1084,
+        "language": null
+      },
+      {
+        "path": "README.md",
+        "name": "README.md",
+        "extension": ".md",
+        "size": 6519,
+        "language": "Markdown"
+      },
+      {
+        "path": "build/acr-build/queue-all.ps1",
+        "name": "queue-all.ps1",
+        "extension": ".ps1",
+        "size": 2127,
+        "language": "PowerShell"
+      },
+      {
+        "path": "build/multiarch-manifests/create-manifests.ps1",
+        "name": "create-manifests.ps1",
+        "extension": ".ps1",
+        "size": 1436,
+        "language": "PowerShell"
+      },
+      {
+        "path": "ci.yml",
+        "name": "ci.yml",
+        "extension": ".yml",
+        "size": 1076,
+        "language": "YAML"
+      },
+      {
+        "path": "code-processor-service/.env.example",
+        "name": ".env.example",
+        "extension": ".example",
+        "size": 408,
+        "language": null
+      },
+      {
+        "path": "code-processor-service/README.md",
+        "name": "README.md",
+        "extension": ".md",
+        "size": 6162,
+        "language": "Markdown"
+      },
+      {
+        "path": "code-processor-service/config/azure_config.json",
+        "name": "azure_config.json",
+        "extension": ".json",
+        "size": 518,
+        "language": "JSON"
+      },
+      {
+        "path": "code-processor-service/config/mcp_config.json",
+        "name": "mcp_config.json",
+        "extension": ".json",
+        "size": 541,
+        "language": "JSON"
+      },
+      {
+        "path": "code-processor-service/pytest.ini",
+        "name": "pytest.ini",
+        "extension": ".ini",
+        "size": 193,
+        "language": null
+      },
+      {
+        "path": "code-processor-service/requirements.txt",
+        "name": "requirements.txt",
+        "extension": ".txt",
+        "size": 506,
+        "language": "Text"
+      },
+      {
+        "path": "code-processor-service/src/__init__.py",
+        "name": "__init__.py",
+        "extension": ".py",
+        "size": 46,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/graph/__init__.py",
+        "name": "__init__.py",
+        "extension": ".py",
+        "size": 225,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/graph/nodes.py",
+        "name": "nodes.py",
+        "extension": ".py",
+        "size": 7538,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/graph/state.py",
+        "name": "state.py",
+        "extension": ".py",
+        "size": 3621,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/graph/workflow.py",
+        "name": "workflow.py",
+        "extension": ".py",
+        "size": 4554,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/llm/__init__.py",
+        "name": "__init__.py",
+        "extension": ".py",
+        "size": 169,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/llm/azure_client.py",
+        "name": "azure_client.py",
+        "extension": ".py",
+        "size": 9846,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/llm/prompts.py",
+        "name": "prompts.py",
+        "extension": ".py",
+        "size": 6199,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/main.py",
+        "name": "main.py",
+        "extension": ".py",
+        "size": 8830,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/mcp/__init__.py",
+        "name": "__init__.py",
+        "extension": ".py",
+        "size": 144,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/mcp/client.py",
+        "name": "client.py",
+        "extension": ".py",
+        "size": 10214,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/mcp/tools.py",
+        "name": "tools.py",
+        "extension": ".py",
+        "size": 5769,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/processors/__init__.py",
+        "name": "__init__.py",
+        "extension": ".py",
+        "size": 257,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/processors/code_analyzer.py",
+        "name": "code_analyzer.py",
+        "extension": ".py",
+        "size": 7267,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/processors/json_formatter.py",
+        "name": "json_formatter.py",
+        "extension": ".py",
+        "size": 7559,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/src/processors/metadata_extractor.py",
+        "name": "metadata_extractor.py",
+        "extension": ".py",
+        "size": 13992,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/tests/__init__.py",
+        "name": "__init__.py",
+        "extension": ".py",
+        "size": 41,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/tests/test_code_analyzer.py",
+        "name": "test_code_analyzer.py",
+        "extension": ".py",
+        "size": 7476,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/tests/test_json_formatter.py",
+        "name": "test_json_formatter.py",
+        "extension": ".py",
+        "size": 7485,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/tests/test_metadata_extractor.py",
+        "name": "test_metadata_extractor.py",
+        "extension": ".py",
+        "size": 8197,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/tests/test_nodes.py",
+        "name": "test_nodes.py",
+        "extension": ".py",
+        "size": 6930,
+        "language": "Python"
+      },
+      {
+        "path": "code-processor-service/tests/test_state.py",
+        "name": "test_state.py",
+        "extension": ".py",
+        "size": 4355,
+        "language": "Python"
+      },
+      {
+        "path": "e2e/AddItemTest.spec.ts",
+        "name": "AddItemTest.spec.ts",
+        "extension": ".ts",
+        "size": 711,
+        "language": "TypeScript"
+      },
+      {
+        "path": "e2e/BrowseItemTest.spec.ts",
+        "name": "BrowseItemTest.spec.ts",
+        "extension": ".ts",
+        "size": 476,
+        "language": "TypeScript"
+      },
+      {
+        "path": "e2e/RemoveItemTest.spec.ts",
+        "name": "RemoveItemTest.spec.ts",
+        "extension": ".ts",
+        "size": 911,
+        "language": "TypeScript"
+      },
+      {
+        "path": "e2e/login.setup.ts",
+        "name": "login.setup.ts",
+        "extension": ".ts",
+        "size": 902,
+        "language": "TypeScript"
+      },
+      {
+        "path": "eShop.Web.slnf",
+        "name": "eShop.Web.slnf",
+        "extension": ".slnf",
+        "size": 1224,
+        "language": null
+      },
+      {
+        "path": "eShop.slnx",
+        "name": "eShop.slnx",
+        "extension": ".slnx",
+        "size": 1876,
+        "language": null
+      },
+      {
+        "path": "es-metadata.yml",
+        "name": "es-metadata.yml",
+        "extension": ".yml",
+        "size": 181,
+        "language": "YAML"
+      },
+      {
+        "path": "global.json",
+        "name": "global.json",
+        "extension": ".json",
+        "size": 125,
+        "language": "JSON"
+      },
+      {
+        "path": "img/eshop_architecture.png",
+        "name": "eshop_architecture.png",
+        "extension": ".png",
+        "size": 492924,
+        "language": null
+      },
+      {
+        "path": "img/eshop_homepage.png",
+        "name": "eshop_homepage.png",
+        "extension": ".png",
+        "size": 1829316,
+        "language": null
+      },
+      {
+        "path": "nuget.config",
+        "name": "nuget.config",
+        "extension": ".config",
+        "size": 529,
+        "language": null
+      },
+      {
+        "path": "package-lock.json",
+        "name": "package-lock.json",
+        "extension": ".json",
+        "size": 3226,
+        "language": "JSON"
+      },
+      {
+        "path": "package.json",
+        "name": "package.json",
+        "extension": ".json",
+        "size": 399,
+        "language": "JSON"
+      },
+      {
+        "path": "playwright.config.ts",
+        "name": "playwright.config.ts",
+        "extension": ".ts",
+        "size": 2694,
+        "language": "TypeScript"
+      },
+      {
+        "path": "src/Basket.API/Basket.API.csproj",
+        "name": "Basket.API.csproj",
+        "extension": ".csproj",
+        "size": 817,
+        "language": null
+      },
+      {
+        "path": "src/Basket.API/Extensions/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 931,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/Extensions/ServerCallContextIdentityExtensions.cs",
+        "name": "ServerCallContextIdentityExtensions.cs",
+        "extension": ".cs",
+        "size": 408,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 422,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/Grpc/BasketService.cs",
+        "name": "BasketService.cs",
+        "extension": ".cs",
+        "size": 3354,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/Model/BasketItem.cs",
+        "name": "BasketItem.cs",
+        "extension": ".cs",
+        "size": 695,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/Model/CustomerBasket.cs",
+        "name": "CustomerBasket.cs",
+        "extension": ".cs",
+        "size": 286,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 258,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 291,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Basket.API/Proto/basket.proto",
+        "name": "basket.proto",
+        "extension": ".proto",
+        "size": 649,
+        "language": null
+      },
+      {
+        "path": "src/Basket.API/Repositories/IBasketRepository.cs",
+        "name": "IBasketRepository.cs",
+        "extension": ".cs",
+        "size": 287,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/Repositories/RedisBasketRepository.cs",
+        "name": "RedisBasketRepository.cs",
+        "extension": ".cs",
+        "size": 1898,
+        "language": "C#"
+      },
+      {
+        "path": "src/Basket.API/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 6,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Basket.API/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 395,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Catalog.API/Apis/CatalogApi.cs",
+        "name": "CatalogApi.cs",
+        "extension": ".cs",
+        "size": 18571,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Catalog.API.csproj",
+        "name": "Catalog.API.csproj",
+        "extension": ".csproj",
+        "size": 2018,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Catalog.API.http",
+        "name": "Catalog.API.http",
+        "extension": ".http",
+        "size": 912,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Catalog.API.json",
+        "name": "Catalog.API.json",
+        "extension": ".json",
+        "size": 29424,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Catalog.API/Catalog.API_v2.json",
+        "name": "Catalog.API_v2.json",
+        "extension": ".json",
+        "size": 23156,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Catalog.API/CatalogOptions.cs",
+        "name": "CatalogOptions.cs",
+        "extension": ".cs",
+        "size": 160,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Extensions/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 2137,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Extensions/HostEnvironmentExtensions.cs",
+        "name": "HostEnvironmentExtensions.cs",
+        "extension": ".cs",
+        "size": 560,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 916,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Infrastructure/CatalogContext.cs",
+        "name": "CatalogContext.cs",
+        "extension": ".cs",
+        "size": 1068,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Infrastructure/CatalogContextSeed.cs",
+        "name": "CatalogContextSeed.cs",
+        "extension": ".cs",
+        "size": 3778,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/IntegrationEvents/CatalogIntegrationEventService.cs",
+        "name": "CatalogIntegrationEventService.cs",
+        "extension": ".cs",
+        "size": 2308,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/IntegrationEvents/ICatalogIntegrationEventService.cs",
+        "name": "ICatalogIntegrationEventService.cs",
+        "extension": ".cs",
+        "size": 235,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Model/CatalogBrand.cs",
+        "name": "CatalogBrand.cs",
+        "extension": ".cs",
+        "size": 268,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Model/CatalogItem.cs",
+        "name": "CatalogItem.cs",
+        "extension": ".cs",
+        "size": 3612,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Model/CatalogServices.cs",
+        "name": "CatalogServices.cs",
+        "extension": ".cs",
+        "size": 629,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Model/CatalogType.cs",
+        "name": "CatalogType.cs",
+        "extension": ".cs",
+        "size": 262,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Model/PaginatedItems.cs",
+        "name": "PaginatedItems.cs",
+        "extension": ".cs",
+        "size": 397,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Model/PaginationRequest.cs",
+        "name": "PaginationRequest.cs",
+        "extension": ".cs",
+        "size": 375,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Pics/1.webp",
+        "name": "1.webp",
+        "extension": ".webp",
+        "size": 47496,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/10.webp",
+        "name": "10.webp",
+        "extension": ".webp",
+        "size": 26522,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/100.webp",
+        "name": "100.webp",
+        "extension": ".webp",
+        "size": 20760,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/101.webp",
+        "name": "101.webp",
+        "extension": ".webp",
+        "size": 55570,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/11.webp",
+        "name": "11.webp",
+        "extension": ".webp",
+        "size": 17650,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/12.webp",
+        "name": "12.webp",
+        "extension": ".webp",
+        "size": 17686,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/13.webp",
+        "name": "13.webp",
+        "extension": ".webp",
+        "size": 19136,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/14.webp",
+        "name": "14.webp",
+        "extension": ".webp",
+        "size": 34824,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/15.webp",
+        "name": "15.webp",
+        "extension": ".webp",
+        "size": 40686,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/16.webp",
+        "name": "16.webp",
+        "extension": ".webp",
+        "size": 16052,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/17.webp",
+        "name": "17.webp",
+        "extension": ".webp",
+        "size": 37630,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/18.webp",
+        "name": "18.webp",
+        "extension": ".webp",
+        "size": 24328,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/19.webp",
+        "name": "19.webp",
+        "extension": ".webp",
+        "size": 50934,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/2.webp",
+        "name": "2.webp",
+        "extension": ".webp",
+        "size": 44264,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/20.webp",
+        "name": "20.webp",
+        "extension": ".webp",
+        "size": 42960,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/21.webp",
+        "name": "21.webp",
+        "extension": ".webp",
+        "size": 36876,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/22.webp",
+        "name": "22.webp",
+        "extension": ".webp",
+        "size": 14608,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/23.webp",
+        "name": "23.webp",
+        "extension": ".webp",
+        "size": 31816,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/24.webp",
+        "name": "24.webp",
+        "extension": ".webp",
+        "size": 19452,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/25.webp",
+        "name": "25.webp",
+        "extension": ".webp",
+        "size": 15370,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/26.webp",
+        "name": "26.webp",
+        "extension": ".webp",
+        "size": 51044,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/27.webp",
+        "name": "27.webp",
+        "extension": ".webp",
+        "size": 19638,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/28.webp",
+        "name": "28.webp",
+        "extension": ".webp",
+        "size": 30506,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/29.webp",
+        "name": "29.webp",
+        "extension": ".webp",
+        "size": 31078,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/3.webp",
+        "name": "3.webp",
+        "extension": ".webp",
+        "size": 24420,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/30.webp",
+        "name": "30.webp",
+        "extension": ".webp",
+        "size": 15820,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/31.webp",
+        "name": "31.webp",
+        "extension": ".webp",
+        "size": 42144,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/32.webp",
+        "name": "32.webp",
+        "extension": ".webp",
+        "size": 22230,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/33.webp",
+        "name": "33.webp",
+        "extension": ".webp",
+        "size": 40332,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/34.webp",
+        "name": "34.webp",
+        "extension": ".webp",
+        "size": 16582,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/35.webp",
+        "name": "35.webp",
+        "extension": ".webp",
+        "size": 12146,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/36.webp",
+        "name": "36.webp",
+        "extension": ".webp",
+        "size": 19438,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/37.webp",
+        "name": "37.webp",
+        "extension": ".webp",
+        "size": 20278,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/38.webp",
+        "name": "38.webp",
+        "extension": ".webp",
+        "size": 23742,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/39.webp",
+        "name": "39.webp",
+        "extension": ".webp",
+        "size": 13348,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/4.webp",
+        "name": "4.webp",
+        "extension": ".webp",
+        "size": 30812,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/40.webp",
+        "name": "40.webp",
+        "extension": ".webp",
+        "size": 34214,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/41.webp",
+        "name": "41.webp",
+        "extension": ".webp",
+        "size": 24078,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/42.webp",
+        "name": "42.webp",
+        "extension": ".webp",
+        "size": 35530,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/43.webp",
+        "name": "43.webp",
+        "extension": ".webp",
+        "size": 25238,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/44.webp",
+        "name": "44.webp",
+        "extension": ".webp",
+        "size": 26782,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/45.webp",
+        "name": "45.webp",
+        "extension": ".webp",
+        "size": 20784,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/46.webp",
+        "name": "46.webp",
+        "extension": ".webp",
+        "size": 26194,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/47.webp",
+        "name": "47.webp",
+        "extension": ".webp",
+        "size": 19856,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/48.webp",
+        "name": "48.webp",
+        "extension": ".webp",
+        "size": 27834,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/49.webp",
+        "name": "49.webp",
+        "extension": ".webp",
+        "size": 26992,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/5.webp",
+        "name": "5.webp",
+        "extension": ".webp",
+        "size": 27668,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/50.webp",
+        "name": "50.webp",
+        "extension": ".webp",
+        "size": 41046,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/51.webp",
+        "name": "51.webp",
+        "extension": ".webp",
+        "size": 27456,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/52.webp",
+        "name": "52.webp",
+        "extension": ".webp",
+        "size": 25740,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/53.webp",
+        "name": "53.webp",
+        "extension": ".webp",
+        "size": 28500,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/54.webp",
+        "name": "54.webp",
+        "extension": ".webp",
+        "size": 33460,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/55.webp",
+        "name": "55.webp",
+        "extension": ".webp",
+        "size": 20312,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/56.webp",
+        "name": "56.webp",
+        "extension": ".webp",
+        "size": 23886,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/57.webp",
+        "name": "57.webp",
+        "extension": ".webp",
+        "size": 32516,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/58.webp",
+        "name": "58.webp",
+        "extension": ".webp",
+        "size": 21220,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/59.webp",
+        "name": "59.webp",
+        "extension": ".webp",
+        "size": 18296,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/6.webp",
+        "name": "6.webp",
+        "extension": ".webp",
+        "size": 6502,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/60.webp",
+        "name": "60.webp",
+        "extension": ".webp",
+        "size": 33498,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/61.webp",
+        "name": "61.webp",
+        "extension": ".webp",
+        "size": 43778,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/62.webp",
+        "name": "62.webp",
+        "extension": ".webp",
+        "size": 14800,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/63.webp",
+        "name": "63.webp",
+        "extension": ".webp",
+        "size": 32234,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/64.webp",
+        "name": "64.webp",
+        "extension": ".webp",
+        "size": 36782,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/65.webp",
+        "name": "65.webp",
+        "extension": ".webp",
+        "size": 42362,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/66.webp",
+        "name": "66.webp",
+        "extension": ".webp",
+        "size": 25212,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/67.webp",
+        "name": "67.webp",
+        "extension": ".webp",
+        "size": 22158,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/68.webp",
+        "name": "68.webp",
+        "extension": ".webp",
+        "size": 33584,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/69.webp",
+        "name": "69.webp",
+        "extension": ".webp",
+        "size": 26280,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/7.webp",
+        "name": "7.webp",
+        "extension": ".webp",
+        "size": 22468,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/70.webp",
+        "name": "70.webp",
+        "extension": ".webp",
+        "size": 30690,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/71.webp",
+        "name": "71.webp",
+        "extension": ".webp",
+        "size": 42492,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/72.webp",
+        "name": "72.webp",
+        "extension": ".webp",
+        "size": 33238,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/73.webp",
+        "name": "73.webp",
+        "extension": ".webp",
+        "size": 34186,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/74.webp",
+        "name": "74.webp",
+        "extension": ".webp",
+        "size": 94280,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/75.webp",
+        "name": "75.webp",
+        "extension": ".webp",
+        "size": 40396,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/76.webp",
+        "name": "76.webp",
+        "extension": ".webp",
+        "size": 28432,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/77.webp",
+        "name": "77.webp",
+        "extension": ".webp",
+        "size": 35688,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/78.webp",
+        "name": "78.webp",
+        "extension": ".webp",
+        "size": 30366,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/79.webp",
+        "name": "79.webp",
+        "extension": ".webp",
+        "size": 24688,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/8.webp",
+        "name": "8.webp",
+        "extension": ".webp",
+        "size": 19570,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/80.webp",
+        "name": "80.webp",
+        "extension": ".webp",
+        "size": 28224,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/81.webp",
+        "name": "81.webp",
+        "extension": ".webp",
+        "size": 59184,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/82.webp",
+        "name": "82.webp",
+        "extension": ".webp",
+        "size": 27476,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/83.webp",
+        "name": "83.webp",
+        "extension": ".webp",
+        "size": 16106,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/84.webp",
+        "name": "84.webp",
+        "extension": ".webp",
+        "size": 23794,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/85.webp",
+        "name": "85.webp",
+        "extension": ".webp",
+        "size": 29446,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/86.webp",
+        "name": "86.webp",
+        "extension": ".webp",
+        "size": 14486,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/87.webp",
+        "name": "87.webp",
+        "extension": ".webp",
+        "size": 33874,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/88.webp",
+        "name": "88.webp",
+        "extension": ".webp",
+        "size": 16650,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/89.webp",
+        "name": "89.webp",
+        "extension": ".webp",
+        "size": 20754,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/9.webp",
+        "name": "9.webp",
+        "extension": ".webp",
+        "size": 27748,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/90.webp",
+        "name": "90.webp",
+        "extension": ".webp",
+        "size": 22660,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/91.webp",
+        "name": "91.webp",
+        "extension": ".webp",
+        "size": 42720,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/92.webp",
+        "name": "92.webp",
+        "extension": ".webp",
+        "size": 17300,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/93.webp",
+        "name": "93.webp",
+        "extension": ".webp",
+        "size": 45862,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/94.webp",
+        "name": "94.webp",
+        "extension": ".webp",
+        "size": 34998,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/95.webp",
+        "name": "95.webp",
+        "extension": ".webp",
+        "size": 21868,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/96.webp",
+        "name": "96.webp",
+        "extension": ".webp",
+        "size": 29372,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/97.webp",
+        "name": "97.webp",
+        "extension": ".webp",
+        "size": 26412,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/98.webp",
+        "name": "98.webp",
+        "extension": ".webp",
+        "size": 14350,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Pics/99.webp",
+        "name": "99.webp",
+        "extension": ".webp",
+        "size": 29942,
+        "language": null
+      },
+      {
+        "path": "src/Catalog.API/Program.Testing.cs",
+        "name": "Program.Testing.cs",
+        "extension": ".cs",
+        "size": 263,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 463,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 242,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Catalog.API/Services/CatalogAI.cs",
+        "name": "CatalogAI.cs",
+        "extension": ".cs",
+        "size": 2608,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Services/ICatalogAI.cs",
+        "name": "ICatalogAI.cs",
+        "extension": ".cs",
+        "size": 639,
+        "language": "C#"
+      },
+      {
+        "path": "src/Catalog.API/Setup/catalog.json",
+        "name": "catalog.json",
+        "extension": ".json",
+        "size": 50409,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Catalog.API/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 132,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Catalog.API/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 580,
+        "language": "JSON"
+      },
+      {
+        "path": "src/ClientApp/Animations/FadeToAnimation.cs",
+        "name": "FadeToAnimation.cs",
+        "extension": ".cs",
+        "size": 4303,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Animations/StoryBoard.cs",
+        "name": "StoryBoard.cs",
+        "extension": ".cs",
+        "size": 956,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/App.xaml",
+        "name": "App.xaml",
+        "extension": ".xaml",
+        "size": 598,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/App.xaml.cs",
+        "name": "App.xaml.cs",
+        "extension": ".cs",
+        "size": 4671,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/AppActions.cs",
+        "name": "AppActions.cs",
+        "extension": ".cs",
+        "size": 194,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/AppShell.xaml",
+        "name": "AppShell.xaml",
+        "extension": ".xaml",
+        "size": 3112,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/AppShell.xaml.cs",
+        "name": "AppShell.xaml.cs",
+        "extension": ".cs",
+        "size": 1101,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ClientApp.csproj",
+        "name": "ClientApp.csproj",
+        "extension": ".csproj",
+        "size": 6166,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/ClientApp.sln",
+        "name": "ClientApp.sln",
+        "extension": ".sln",
+        "size": 1998,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Controls/AddBasketButton.xaml",
+        "name": "AddBasketButton.xaml",
+        "extension": ".xaml",
+        "size": 635,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Controls/AddBasketButton.xaml.cs",
+        "name": "AddBasketButton.xaml.cs",
+        "extension": ".cs",
+        "size": 160,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Controls/CustomTabbedPage.cs",
+        "name": "CustomTabbedPage.cs",
+        "extension": ".cs",
+        "size": 953,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Controls/ToggleButton.cs",
+        "name": "ToggleButton.cs",
+        "extension": ".cs",
+        "size": 3555,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Converters/DoesNotHaveCountConverter.cs",
+        "name": "DoesNotHaveCountConverter.cs",
+        "extension": ".cs",
+        "size": 370,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Converters/DoubleConverter.cs",
+        "name": "DoubleConverter.cs",
+        "extension": ".cs",
+        "size": 641,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Converters/FirstValidationErrorConverter.cs",
+        "name": "FirstValidationErrorConverter.cs",
+        "extension": ".cs",
+        "size": 461,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Converters/HasCountConverter.cs",
+        "name": "HasCountConverter.cs",
+        "extension": ".cs",
+        "size": 361,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Converters/ItemsToHeightConverter.cs",
+        "name": "ItemsToHeightConverter.cs",
+        "extension": ".cs",
+        "size": 418,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Converters/WebNavigatedEventArgsConverter.cs",
+        "name": "WebNavigatedEventArgsConverter.cs",
+        "extension": ".cs",
+        "size": 440,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Converters/WebNavigatingEventArgsConverter.cs",
+        "name": "WebNavigatingEventArgsConverter.cs",
+        "extension": ".cs",
+        "size": 657,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Effects/EntryLineColorEffect.cs",
+        "name": "EntryLineColorEffect.cs",
+        "extension": ".cs",
+        "size": 188,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Effects/ThemeEffects.cs",
+        "name": "ThemeEffects.cs",
+        "extension": ".cs",
+        "size": 1261,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Exceptions/ServiceAuthenticationException.cs",
+        "name": "ServiceAuthenticationException.cs",
+        "extension": ".cs",
+        "size": 292,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Extensions/DictionaryExtensions.cs",
+        "name": "DictionaryExtensions.cs",
+        "extension": ".cs",
+        "size": 841,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Extensions/ICommandExtensions.cs",
+        "name": "ICommandExtensions.cs",
+        "extension": ".cs",
+        "size": 340,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Extensions/VisualElementExtensions.cs",
+        "name": "VisualElementExtensions.cs",
+        "extension": ".cs",
+        "size": 14059,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/GlobalSuppressions.cs",
+        "name": "GlobalSuppressions.cs",
+        "extension": ".cs",
+        "size": 473,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 137,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Helpers/EasingHelper.cs",
+        "name": "EasingHelper.cs",
+        "extension": ".cs",
+        "size": 814,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Helpers/UriHelper.cs",
+        "name": "UriHelper.cs",
+        "extension": ".cs",
+        "size": 584,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/MauiProgram.cs",
+        "name": "MauiProgram.cs",
+        "extension": ".cs",
+        "size": 7760,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Messages/ProductCountChangedMessage.cs",
+        "name": "ProductCountChangedMessage.cs",
+        "extension": ".cs",
+        "size": 175,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 121,
+        "language": "JSON"
+      },
+      {
+        "path": "src/ClientApp/Services/EShopJsonSerializerContext.cs",
+        "name": "EShopJsonSerializerContext.cs",
+        "extension": ".cs",
+        "size": 747,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Triggers/BeginAnimation.cs",
+        "name": "BeginAnimation.cs",
+        "extension": ".cs",
+        "size": 356,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Validations/IValidationRule.cs",
+        "name": "IValidationRule.cs",
+        "extension": ".cs",
+        "size": 152,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Validations/IValidity.cs",
+        "name": "IValidity.cs",
+        "extension": ".cs",
+        "size": 100,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Validations/IsNotNullOrEmptyRule.cs",
+        "name": "IsNotNullOrEmptyRule.cs",
+        "extension": ".cs",
+        "size": 285,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Validations/ValidatableObject.cs",
+        "name": "ValidatableObject.cs",
+        "extension": ".cs",
+        "size": 1051,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/BasketViewModel.cs",
+        "name": "BasketViewModel.cs",
+        "extension": ".cs",
+        "size": 3546,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/CatalogItemViewModel.cs",
+        "name": "CatalogItemViewModel.cs",
+        "extension": ".cs",
+        "size": 1937,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/CatalogViewModel.cs",
+        "name": "CatalogViewModel.cs",
+        "extension": ".cs",
+        "size": 6042,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/CheckoutViewModel.cs",
+        "name": "CheckoutViewModel.cs",
+        "extension": ".cs",
+        "size": 6083,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/LoginViewModel.cs",
+        "name": "LoginViewModel.cs",
+        "extension": ".cs",
+        "size": 3805,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/MainViewModel.cs",
+        "name": "MainViewModel.cs",
+        "extension": ".cs",
+        "size": 410,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/MapViewModel.cs",
+        "name": "MapViewModel.cs",
+        "extension": ".cs",
+        "size": 898,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/ObservableCollectionEx.cs",
+        "name": "ObservableCollectionEx.cs",
+        "extension": ".cs",
+        "size": 1461,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/OrderDetailViewModel.cs",
+        "name": "OrderDetailViewModel.cs",
+        "extension": ".cs",
+        "size": 2396,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/ProfileViewModel.cs",
+        "name": "ProfileViewModel.cs",
+        "extension": ".cs",
+        "size": 2080,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/SelectionViewModel.cs",
+        "name": "SelectionViewModel.cs",
+        "extension": ".cs",
+        "size": 200,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/ViewModels/SettingsViewModel.cs",
+        "name": "SettingsViewModel.cs",
+        "extension": ".cs",
+        "size": 11168,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/BadgeView.cs",
+        "name": "BadgeView.cs",
+        "extension": ".cs",
+        "size": 3968,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/BasketView.xaml",
+        "name": "BasketView.xaml",
+        "extension": ".xaml",
+        "size": 3670,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/BasketView.xaml.cs",
+        "name": "BasketView.xaml.cs",
+        "extension": ".cs",
+        "size": 201,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/CatalogItemView.xaml",
+        "name": "CatalogItemView.xaml",
+        "extension": ".xaml",
+        "size": 3997,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/CatalogItemView.xaml.cs",
+        "name": "CatalogItemView.xaml.cs",
+        "extension": ".cs",
+        "size": 216,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/CatalogView.xaml",
+        "name": "CatalogView.xaml",
+        "extension": ".xaml",
+        "size": 11946,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/CatalogView.xaml.cs",
+        "name": "CatalogView.xaml.cs",
+        "extension": ".cs",
+        "size": 1482,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/CheckoutView.xaml",
+        "name": "CheckoutView.xaml",
+        "extension": ".xaml",
+        "size": 6553,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/CheckoutView.xaml.cs",
+        "name": "CheckoutView.xaml.cs",
+        "extension": ".cs",
+        "size": 207,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/ContentPageBase.cs",
+        "name": "ContentPageBase.cs",
+        "extension": ".cs",
+        "size": 482,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/CustomNavigationView.xaml",
+        "name": "CustomNavigationView.xaml",
+        "extension": ".xaml",
+        "size": 374,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/CustomNavigationView.xaml.cs",
+        "name": "CustomNavigationView.xaml.cs",
+        "extension": ".cs",
+        "size": 277,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/FiltersView.xaml",
+        "name": "FiltersView.xaml",
+        "extension": ".xaml",
+        "size": 3895,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/FiltersView.xaml.cs",
+        "name": "FiltersView.xaml.cs",
+        "extension": ".cs",
+        "size": 219,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/LoginView.xaml",
+        "name": "LoginView.xaml",
+        "extension": ".xaml",
+        "size": 2985,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/LoginView.xaml.cs",
+        "name": "LoginView.xaml.cs",
+        "extension": ".cs",
+        "size": 516,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/MapView.xaml",
+        "name": "MapView.xaml",
+        "extension": ".xaml",
+        "size": 1670,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/MapView.xaml.cs",
+        "name": "MapView.xaml.cs",
+        "extension": ".cs",
+        "size": 548,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/MauiAuthenticationBrowser.cs",
+        "name": "MauiAuthenticationBrowser.cs",
+        "extension": ".cs",
+        "size": 898,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/OrderDetailView.xaml",
+        "name": "OrderDetailView.xaml",
+        "extension": ".xaml",
+        "size": 8520,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/OrderDetailView.xaml.cs",
+        "name": "OrderDetailView.xaml.cs",
+        "extension": ".cs",
+        "size": 216,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/ProfileView.xaml",
+        "name": "ProfileView.xaml",
+        "extension": ".xaml",
+        "size": 2293,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/ProfileView.xaml.cs",
+        "name": "ProfileView.xaml.cs",
+        "extension": ".cs",
+        "size": 482,
+        "language": "C#"
+      },
+      {
+        "path": "src/ClientApp/Views/SettingsView.xaml",
+        "name": "SettingsView.xaml",
+        "extension": ".xaml",
+        "size": 11709,
+        "language": null
+      },
+      {
+        "path": "src/ClientApp/Views/SettingsView.xaml.cs",
+        "name": "SettingsView.xaml.cs",
+        "extension": ".cs",
+        "size": 221,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/Abstractions/EventBusSubscriptionInfo.cs",
+        "name": "EventBusSubscriptionInfo.cs",
+        "extension": ".cs",
+        "size": 1007,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/Abstractions/IEventBus.cs",
+        "name": "IEventBus.cs",
+        "extension": ".cs",
+        "size": 122,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/Abstractions/IEventBusBuilder.cs",
+        "name": "IEventBusBuilder.cs",
+        "extension": ".cs",
+        "size": 142,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/Abstractions/IIntegrationEventHandler.cs",
+        "name": "IIntegrationEventHandler.cs",
+        "extension": ".cs",
+        "size": 422,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/EventBus.csproj",
+        "name": "EventBus.csproj",
+        "extension": ".csproj",
+        "size": 321,
+        "language": null
+      },
+      {
+        "path": "src/EventBus/Events/IntegrationEvent.cs",
+        "name": "IntegrationEvent.cs",
+        "extension": ".cs",
+        "size": 301,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/Extensions/EventBusBuilderExtensions.cs",
+        "name": "EventBusBuilderExtensions.cs",
+        "extension": ".cs",
+        "size": 1702,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/Extensions/GenericTypeExtensions.cs",
+        "name": "GenericTypeExtensions.cs",
+        "extension": ".cs",
+        "size": 656,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBus/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 84,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBusRabbitMQ/EventBusOptions.cs",
+        "name": "EventBusOptions.cs",
+        "extension": ".cs",
+        "size": 172,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBusRabbitMQ/EventBusRabbitMQ.csproj",
+        "name": "EventBusRabbitMQ.csproj",
+        "extension": ".csproj",
+        "size": 617,
+        "language": null
+      },
+      {
+        "path": "src/EventBusRabbitMQ/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 342,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBusRabbitMQ/RabbitMQEventBus.cs",
+        "name": "RabbitMQEventBus.cs",
+        "extension": ".cs",
+        "size": 12591,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBusRabbitMQ/RabbitMQTelemetry.cs",
+        "name": "RabbitMQTelemetry.cs",
+        "extension": ".cs",
+        "size": 374,
+        "language": "C#"
+      },
+      {
+        "path": "src/EventBusRabbitMQ/RabbitMqDependencyInjectionExtensions.cs",
+        "name": "RabbitMqDependencyInjectionExtensions.cs",
+        "extension": ".cs",
+        "size": 2171,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/App.xaml",
+        "name": "App.xaml",
+        "extension": ".xaml",
+        "size": 1113,
+        "language": null
+      },
+      {
+        "path": "src/HybridApp/App.xaml.cs",
+        "name": "App.xaml.cs",
+        "extension": ".cs",
+        "size": 273,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/Components/Routes.razor",
+        "name": "Routes.razor",
+        "extension": ".razor",
+        "size": 509,
+        "language": null
+      },
+      {
+        "path": "src/HybridApp/Components/_Imports.razor",
+        "name": "_Imports.razor",
+        "extension": ".razor",
+        "size": 491,
+        "language": null
+      },
+      {
+        "path": "src/HybridApp/GlobalSuppressions.cs",
+        "name": "GlobalSuppressions.cs",
+        "extension": ".cs",
+        "size": 1776,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/HybridApp.csproj",
+        "name": "HybridApp.csproj",
+        "extension": ".csproj",
+        "size": 5091,
+        "language": null
+      },
+      {
+        "path": "src/HybridApp/MainPage.xaml",
+        "name": "MainPage.xaml",
+        "extension": ".xaml",
+        "size": 638,
+        "language": null
+      },
+      {
+        "path": "src/HybridApp/MainPage.xaml.cs",
+        "name": "MainPage.xaml.cs",
+        "extension": ".cs",
+        "size": 129,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/MauiProgram.cs",
+        "name": "MauiProgram.cs",
+        "extension": ".cs",
+        "size": 1094,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 121,
+        "language": "JSON"
+      },
+      {
+        "path": "src/HybridApp/Services/CatalogJsonContext.cs",
+        "name": "CatalogJsonContext.cs",
+        "extension": ".cs",
+        "size": 569,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/Services/CatalogService.cs",
+        "name": "CatalogService.cs",
+        "extension": ".cs",
+        "size": 2633,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/Services/ProductImageUrlProvider.cs",
+        "name": "ProductImageUrlProvider.cs",
+        "extension": ".cs",
+        "size": 292,
+        "language": "C#"
+      },
+      {
+        "path": "src/HybridApp/wwwroot/chatbot.png",
+        "name": "chatbot.png",
+        "extension": ".png",
+        "size": 2451,
+        "language": null
+      },
+      {
+        "path": "src/HybridApp/wwwroot/favicon.png",
+        "name": "favicon.png",
+        "extension": ".png",
+        "size": 1148,
+        "language": null
+      },
+      {
+        "path": "src/HybridApp/wwwroot/index.html",
+        "name": "index.html",
+        "extension": ".html",
+        "size": 679,
+        "language": "HTML"
+      },
+      {
+        "path": "src/Identity.API/.gitignore",
+        "name": ".gitignore",
+        "extension": "",
+        "size": 19,
+        "language": null
+      },
+      {
+        "path": "src/Identity.API/Configuration/Config.cs",
+        "name": "Config.cs",
+        "extension": ".cs",
+        "size": 8302,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Data/ApplicationDbContext.cs",
+        "name": "ApplicationDbContext.cs",
+        "extension": ".cs",
+        "size": 766,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 1978,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Identity.API.csproj",
+        "name": "Identity.API.csproj",
+        "extension": ".csproj",
+        "size": 2575,
+        "language": null
+      },
+      {
+        "path": "src/Identity.API/Models/ApplicationUser.cs",
+        "name": "ApplicationUser.cs",
+        "extension": ".cs",
+        "size": 1066,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Models/ErrorViewModel.cs",
+        "name": "ErrorViewModel.cs",
+        "extension": ".cs",
+        "size": 312,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 1961,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 484,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Identity.API/Quickstart/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 794,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Quickstart/SecurityHeadersAttribute.cs",
+        "name": "SecurityHeadersAttribute.cs",
+        "extension": ".cs",
+        "size": 2520,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Services/EFLoginService.cs",
+        "name": "EFLoginService.cs",
+        "extension": ".cs",
+        "size": 1171,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Services/ILoginService.cs",
+        "name": "ILoginService.cs",
+        "extension": ".cs",
+        "size": 344,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Services/IRedirectService.cs",
+        "name": "IRedirectService.cs",
+        "extension": ".cs",
+        "size": 155,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Services/ProfileService.cs",
+        "name": "ProfileService.cs",
+        "extension": ".cs",
+        "size": 4649,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Services/RedirectService.cs",
+        "name": "RedirectService.cs",
+        "extension": ".cs",
+        "size": 844,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/UsersSeed.cs",
+        "name": "UsersSeed.cs",
+        "extension": ".cs",
+        "size": 2928,
+        "language": "C#"
+      },
+      {
+        "path": "src/Identity.API/Views/_ViewImports.cshtml",
+        "name": "_ViewImports.cshtml",
+        "extension": ".cshtml",
+        "size": 93,
+        "language": null
+      },
+      {
+        "path": "src/Identity.API/Views/_ViewStart.cshtml",
+        "name": "_ViewStart.cshtml",
+        "extension": ".cshtml",
+        "size": 29,
+        "language": null
+      },
+      {
+        "path": "src/Identity.API/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 134,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Identity.API/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 261,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Identity.API/bundleconfig.json",
+        "name": "bundleconfig.json",
+        "extension": ".json",
+        "size": 603,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Identity.API/libman.json",
+        "name": "libman.json",
+        "extension": ".json",
+        "size": 818,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Identity.API/tempkey.jwk",
+        "name": "tempkey.jwk",
+        "extension": ".jwk",
+        "size": 2018,
+        "language": null
+      },
+      {
+        "path": "src/Identity.API/wwwroot/_references.js",
+        "name": "_references.js",
+        "extension": ".js",
+        "size": 343,
+        "language": "JavaScript"
+      },
+      {
+        "path": "src/Identity.API/wwwroot/favicon.ico",
+        "name": "favicon.ico",
+        "extension": ".ico",
+        "size": 15086,
+        "language": null
+      },
+      {
+        "path": "src/Identity.API/wwwroot/icon.jpg",
+        "name": "icon.jpg",
+        "extension": ".jpg",
+        "size": 19482,
+        "language": null
+      },
+      {
+        "path": "src/Identity.API/wwwroot/icon.png",
+        "name": "icon.png",
+        "extension": ".png",
+        "size": 20796,
+        "language": null
+      },
+      {
+        "path": "src/IntegrationEventLogEF/EventStateEnum.cs",
+        "name": "EventStateEnum.cs",
+        "extension": ".cs",
+        "size": 160,
+        "language": "C#"
+      },
+      {
+        "path": "src/IntegrationEventLogEF/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 352,
+        "language": "C#"
+      },
+      {
+        "path": "src/IntegrationEventLogEF/IntegrationEventLogEF.csproj",
+        "name": "IntegrationEventLogEF.csproj",
+        "extension": ".csproj",
+        "size": 433,
+        "language": null
+      },
+      {
+        "path": "src/IntegrationEventLogEF/IntegrationEventLogEntry.cs",
+        "name": "IntegrationEventLogEntry.cs",
+        "extension": ".cs",
+        "size": 1576,
+        "language": "C#"
+      },
+      {
+        "path": "src/IntegrationEventLogEF/IntegrationLogExtensions.cs",
+        "name": "IntegrationLogExtensions.cs",
+        "extension": ".cs",
+        "size": 357,
+        "language": "C#"
+      },
+      {
+        "path": "src/IntegrationEventLogEF/Services/IIntegrationEventLogService.cs",
+        "name": "IIntegrationEventLogService.cs",
+        "extension": ".cs",
+        "size": 442,
+        "language": "C#"
+      },
+      {
+        "path": "src/IntegrationEventLogEF/Services/IntegrationEventLogService.cs",
+        "name": "IntegrationEventLogService.cs",
+        "extension": ".cs",
+        "size": 2771,
+        "language": "C#"
+      },
+      {
+        "path": "src/IntegrationEventLogEF/Utilities/ResilientTransaction.cs",
+        "name": "ResilientTransaction.cs",
+        "extension": ".cs",
+        "size": 926,
+        "language": "C#"
+      },
+      {
+        "path": "src/OrderProcessor/BackgroundTaskOptions.cs",
+        "name": "BackgroundTaskOptions.cs",
+        "extension": ".cs",
+        "size": 166,
+        "language": "C#"
+      },
+      {
+        "path": "src/OrderProcessor/Events/GracePeriodConfirmedIntegrationEvent.cs",
+        "name": "GracePeriodConfirmedIntegrationEvent.cs",
+        "extension": ".cs",
+        "size": 301,
+        "language": "C#"
+      },
+      {
+        "path": "src/OrderProcessor/Extensions/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 800,
+        "language": "C#"
+      },
+      {
+        "path": "src/OrderProcessor/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 313,
+        "language": "C#"
+      },
+      {
+        "path": "src/OrderProcessor/OrderProcessor.csproj",
+        "name": "OrderProcessor.csproj",
+        "extension": ".csproj",
+        "size": 582,
+        "language": null
+      },
+      {
+        "path": "src/OrderProcessor/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 202,
+        "language": "C#"
+      },
+      {
+        "path": "src/OrderProcessor/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 219,
+        "language": "JSON"
+      },
+      {
+        "path": "src/OrderProcessor/Services/GracePeriodManagerService.cs",
+        "name": "GracePeriodManagerService.cs",
+        "extension": ".cs",
+        "size": 3412,
+        "language": "C#"
+      },
+      {
+        "path": "src/OrderProcessor/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 267,
+        "language": "JSON"
+      },
+      {
+        "path": "src/OrderProcessor/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 341,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Ordering.API/Apis/OrderServices.cs",
+        "name": "OrderServices.cs",
+        "extension": ".cs",
+        "size": 400,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Apis/OrdersApi.cs",
+        "name": "OrdersApi.cs",
+        "extension": ".cs",
+        "size": 6908,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Extensions/BasketItemExtensions.cs",
+        "name": "BasketItemExtensions.cs",
+        "extension": ".cs",
+        "size": 650,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Extensions/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 2902,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Extensions/LinqSelectExtensions.cs",
+        "name": "LinqSelectExtensions.cs",
+        "extension": ".cs",
+        "size": 1814,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Extensions/OrderingApiTrace.cs",
+        "name": "OrderingApiTrace.cs",
+        "extension": ".cs",
+        "size": 1034,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 1484,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Infrastructure/OrderingContextSeed.cs",
+        "name": "OrderingContextSeed.cs",
+        "extension": ".cs",
+        "size": 726,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Ordering.API.csproj",
+        "name": "Ordering.API.csproj",
+        "extension": ".csproj",
+        "size": 1882,
+        "language": null
+      },
+      {
+        "path": "src/Ordering.API/Program.Testing.cs",
+        "name": "Program.Testing.cs",
+        "extension": ".cs",
+        "size": 265,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 459,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.API/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 242,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Ordering.API/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 134,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Ordering.API/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 692,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Ordering.Domain/Events/BuyerPaymentMethodVerifiedDomainEvent.cs",
+        "name": "BuyerPaymentMethodVerifiedDomainEvent.cs",
+        "extension": ".cs",
+        "size": 458,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Events/OrderCancelledDomainEvent.cs",
+        "name": "OrderCancelledDomainEvent.cs",
+        "extension": ".cs",
+        "size": 222,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Events/OrderShippedDomainEvent.cs",
+        "name": "OrderShippedDomainEvent.cs",
+        "extension": ".cs",
+        "size": 217,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Events/OrderStartedDomainEvent.cs",
+        "name": "OrderStartedDomainEvent.cs",
+        "extension": ".cs",
+        "size": 364,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Events/OrderStatusChangedToAwaitingValidationDomainEvent.cs",
+        "name": "OrderStatusChangedToAwaitingValidationDomainEvent.cs",
+        "extension": ".cs",
+        "size": 496,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Events/OrderStatusChangedToPaidDomainEvent.cs",
+        "name": "OrderStatusChangedToPaidDomainEvent.cs",
+        "extension": ".cs",
+        "size": 443,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Events/OrderStatusChangedToStockConfirmedDomainEvent.cs",
+        "name": "OrderStatusChangedToStockConfirmedDomainEvent.cs",
+        "extension": ".cs",
+        "size": 345,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Exceptions/OrderingDomainException.cs",
+        "name": "OrderingDomainException.cs",
+        "extension": ".cs",
+        "size": 426,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 326,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/Ordering.Domain.csproj",
+        "name": "Ordering.Domain.csproj",
+        "extension": ".csproj",
+        "size": 275,
+        "language": null
+      },
+      {
+        "path": "src/Ordering.Domain/SeedWork/Entity.cs",
+        "name": "Entity.cs",
+        "extension": ".cs",
+        "size": 2087,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/SeedWork/IAggregateRoot.cs",
+        "name": "IAggregateRoot.cs",
+        "extension": ".cs",
+        "size": 84,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/SeedWork/IRepository.cs",
+        "name": "IRepository.cs",
+        "extension": ".cs",
+        "size": 143,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/SeedWork/IUnitOfWork.cs",
+        "name": "IUnitOfWork.cs",
+        "extension": ".cs",
+        "size": 253,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Domain/SeedWork/ValueObject.cs",
+        "name": "ValueObject.cs",
+        "extension": ".cs",
+        "size": 1142,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/EntityConfigurations/BuyerEntityTypeConfiguration.cs",
+        "name": "BuyerEntityTypeConfiguration.cs",
+        "extension": ".cs",
+        "size": 666,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/EntityConfigurations/CardTypeEntityTypeConfiguration.cs",
+        "name": "CardTypeEntityTypeConfiguration.cs",
+        "extension": ".cs",
+        "size": 496,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/EntityConfigurations/ClientRequestEntityTypeConfiguration.cs",
+        "name": "ClientRequestEntityTypeConfiguration.cs",
+        "extension": ".cs",
+        "size": 302,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/EntityConfigurations/OrderEntityTypeConfiguration.cs",
+        "name": "OrderEntityTypeConfiguration.cs",
+        "extension": ".cs",
+        "size": 1102,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/EntityConfigurations/OrderItemEntityTypeConfiguration.cs",
+        "name": "OrderItemEntityTypeConfiguration.cs",
+        "extension": ".cs",
+        "size": 505,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/EntityConfigurations/PaymentMethodEntityTypeConfiguration.cs",
+        "name": "PaymentMethodEntityTypeConfiguration.cs",
+        "extension": ".cs",
+        "size": 1321,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 607,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Idempotency/ClientRequest.cs",
+        "name": "ClientRequest.cs",
+        "extension": ".cs",
+        "size": 258,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Idempotency/IRequestManager.cs",
+        "name": "IRequestManager.cs",
+        "extension": ".cs",
+        "size": 182,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Idempotency/RequestManager.cs",
+        "name": "RequestManager.cs",
+        "extension": ".cs",
+        "size": 949,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/MediatorExtension.cs",
+        "name": "MediatorExtension.cs",
+        "extension": ".cs",
+        "size": 676,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20230925222426_Initial.Designer.cs",
+        "name": "20230925222426_Initial.Designer.cs",
+        "extension": ".cs",
+        "size": 12547,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20230925222426_Initial.cs",
+        "name": "20230925222426_Initial.cs",
+        "extension": ".cs",
+        "size": 11572,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20231021004633_FixOrderitemseqSchema.Designer.cs",
+        "name": "20231021004633_FixOrderitemseqSchema.Designer.cs",
+        "extension": ".cs",
+        "size": 12321,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20231021004633_FixOrderitemseqSchema.cs",
+        "name": "20231021004633_FixOrderitemseqSchema.cs",
+        "extension": ".cs",
+        "size": 2086,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20231026091055_Outbox.Designer.cs",
+        "name": "20231026091055_Outbox.Designer.cs",
+        "extension": ".cs",
+        "size": 13382,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20231026091055_Outbox.cs",
+        "name": "20231026091055_Outbox.cs",
+        "extension": ".cs",
+        "size": 1541,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20240106121712_UseEnumForOrderStatus.Designer.cs",
+        "name": "20240106121712_UseEnumForOrderStatus.Designer.cs",
+        "extension": ".cs",
+        "size": 12487,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/20240106121712_UseEnumForOrderStatus.cs",
+        "name": "20240106121712_UseEnumForOrderStatus.cs",
+        "extension": ".cs",
+        "size": 3882,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Migrations/OrderingContextModelSnapshot.cs",
+        "name": "OrderingContextModelSnapshot.cs",
+        "extension": ".cs",
+        "size": 12373,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Ordering.Infrastructure.csproj",
+        "name": "Ordering.Infrastructure.csproj",
+        "extension": ".csproj",
+        "size": 474,
+        "language": null
+      },
+      {
+        "path": "src/Ordering.Infrastructure/OrderingContext.cs",
+        "name": "OrderingContext.cs",
+        "extension": ".cs",
+        "size": 4235,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Repositories/BuyerRepository.cs",
+        "name": "BuyerRepository.cs",
+        "extension": ".cs",
+        "size": 1214,
+        "language": "C#"
+      },
+      {
+        "path": "src/Ordering.Infrastructure/Repositories/OrderRepository.cs",
+        "name": "OrderRepository.cs",
+        "extension": ".cs",
+        "size": 858,
+        "language": "C#"
+      },
+      {
+        "path": "src/PaymentProcessor/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 328,
+        "language": "C#"
+      },
+      {
+        "path": "src/PaymentProcessor/PaymentOptions.cs",
+        "name": "PaymentOptions.cs",
+        "extension": ".cs",
+        "size": 118,
+        "language": "C#"
+      },
+      {
+        "path": "src/PaymentProcessor/PaymentProcessor.csproj",
+        "name": "PaymentProcessor.csproj",
+        "extension": ".csproj",
+        "size": 336,
+        "language": null
+      },
+      {
+        "path": "src/PaymentProcessor/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 434,
+        "language": "C#"
+      },
+      {
+        "path": "src/PaymentProcessor/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 254,
+        "language": "JSON"
+      },
+      {
+        "path": "src/PaymentProcessor/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 193,
+        "language": "JSON"
+      },
+      {
+        "path": "src/PaymentProcessor/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 312,
+        "language": "JSON"
+      },
+      {
+        "path": "src/Shared/ActivityExtensions.cs",
+        "name": "ActivityExtensions.cs",
+        "extension": ".cs",
+        "size": 569,
+        "language": "C#"
+      },
+      {
+        "path": "src/Shared/MigrateDbContextExtensions.cs",
+        "name": "MigrateDbContextExtensions.cs",
+        "extension": ".cs",
+        "size": 3553,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Components/App.razor",
+        "name": "App.razor",
+        "extension": ".razor",
+        "size": 510,
+        "language": null
+      },
+      {
+        "path": "src/WebApp/Components/Routes.razor",
+        "name": "Routes.razor",
+        "extension": ".razor",
+        "size": 260,
+        "language": null
+      },
+      {
+        "path": "src/WebApp/Components/_Imports.razor",
+        "name": "_Imports.razor",
+        "extension": ".razor",
+        "size": 581,
+        "language": null
+      },
+      {
+        "path": "src/WebApp/Extensions/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 5644,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 113,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 835,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 615,
+        "language": "JSON"
+      },
+      {
+        "path": "src/WebApp/Services/BasketCheckoutInfo.cs",
+        "name": "BasketCheckoutInfo.cs",
+        "extension": ".cs",
+        "size": 716,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Services/BasketItem.cs",
+        "name": "BasketItem.cs",
+        "extension": ".cs",
+        "size": 328,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Services/BasketService.cs",
+        "name": "BasketService.cs",
+        "extension": ".cs",
+        "size": 1425,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Services/BasketState.cs",
+        "name": "BasketState.cs",
+        "extension": ".cs",
+        "size": 6076,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Services/IBasketState.cs",
+        "name": "IBasketState.cs",
+        "extension": ".cs",
+        "size": 249,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Services/LogOutService.cs",
+        "name": "LogOutService.cs",
+        "extension": ".cs",
+        "size": 466,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Services/OrderingService.cs",
+        "name": "OrderingService.cs",
+        "extension": ".cs",
+        "size": 770,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/Services/ProductImageUrlProvider.cs",
+        "name": "ProductImageUrlProvider.cs",
+        "extension": ".cs",
+        "size": 255,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebApp/WebApp.csproj",
+        "name": "WebApp.csproj",
+        "extension": ".csproj",
+        "size": 1369,
+        "language": null
+      },
+      {
+        "path": "src/WebApp/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 119,
+        "language": "JSON"
+      },
+      {
+        "path": "src/WebApp/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 249,
+        "language": "JSON"
+      },
+      {
+        "path": "src/WebApp/wwwroot/chat.png",
+        "name": "chat.png",
+        "extension": ".png",
+        "size": 1162,
+        "language": null
+      },
+      {
+        "path": "src/WebApp/wwwroot/chatbot.png",
+        "name": "chatbot.png",
+        "extension": ".png",
+        "size": 2451,
+        "language": null
+      },
+      {
+        "path": "src/WebAppComponents/Catalog/CatalogItem.cs",
+        "name": "CatalogItem.cs",
+        "extension": ".cs",
+        "size": 476,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebAppComponents/Catalog/CatalogListItem.razor",
+        "name": "CatalogListItem.razor",
+        "extension": ".razor",
+        "size": 692,
+        "language": null
+      },
+      {
+        "path": "src/WebAppComponents/Catalog/CatalogListItem.razor.css",
+        "name": "CatalogListItem.razor.css",
+        "extension": ".css",
+        "size": 1141,
+        "language": "CSS"
+      },
+      {
+        "path": "src/WebAppComponents/Catalog/CatalogSearch.razor",
+        "name": "CatalogSearch.razor",
+        "extension": ".razor",
+        "size": 2644,
+        "language": null
+      },
+      {
+        "path": "src/WebAppComponents/Catalog/CatalogSearch.razor.css",
+        "name": "CatalogSearch.razor.css",
+        "extension": ".css",
+        "size": 1907,
+        "language": "CSS"
+      },
+      {
+        "path": "src/WebAppComponents/Item/ItemHelper.cs",
+        "name": "ItemHelper.cs",
+        "extension": ".cs",
+        "size": 194,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebAppComponents/Services/CatalogService.cs",
+        "name": "CatalogService.cs",
+        "extension": ".cs",
+        "size": 2317,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebAppComponents/Services/ICatalogService.cs",
+        "name": "ICatalogService.cs",
+        "extension": ".cs",
+        "size": 627,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebAppComponents/Services/IProductImageUrlProvider.cs",
+        "name": "IProductImageUrlProvider.cs",
+        "extension": ".cs",
+        "size": 267,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebAppComponents/WebAppComponents.csproj",
+        "name": "WebAppComponents.csproj",
+        "extension": ".csproj",
+        "size": 447,
+        "language": null
+      },
+      {
+        "path": "src/WebAppComponents/_Imports.razor",
+        "name": "_Imports.razor",
+        "extension": ".razor",
+        "size": 85,
+        "language": null
+      },
+      {
+        "path": "src/WebhookClient/Components/App.razor",
+        "name": "App.razor",
+        "extension": ".razor",
+        "size": 463,
+        "language": null
+      },
+      {
+        "path": "src/WebhookClient/Components/App.razor.css",
+        "name": "App.razor.css",
+        "extension": ".css",
+        "size": 124,
+        "language": "CSS"
+      },
+      {
+        "path": "src/WebhookClient/Components/Routes.razor",
+        "name": "Routes.razor",
+        "extension": ".razor",
+        "size": 260,
+        "language": null
+      },
+      {
+        "path": "src/WebhookClient/Components/_Imports.razor",
+        "name": "_Imports.razor",
+        "extension": ".razor",
+        "size": 384,
+        "language": null
+      },
+      {
+        "path": "src/WebhookClient/Endpoints/AuthenticationEndpoints.cs",
+        "name": "AuthenticationEndpoints.cs",
+        "extension": ".cs",
+        "size": 779,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Endpoints/WebhookEndpoints.cs",
+        "name": "WebhookEndpoints.cs",
+        "extension": ".cs",
+        "size": 2225,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Extensions/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 2778,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 216,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Program.cs",
+        "name": "Program.cs",
+        "extension": ".cs",
+        "size": 735,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Properties/launchSettings.json",
+        "name": "launchSettings.json",
+        "extension": ".json",
+        "size": 1063,
+        "language": "JSON"
+      },
+      {
+        "path": "src/WebhookClient/Services/HooksRepository.cs",
+        "name": "HooksRepository.cs",
+        "extension": ".cs",
+        "size": 1377,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Services/WebHookReceived.cs",
+        "name": "WebHookReceived.cs",
+        "extension": ".cs",
+        "size": 195,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Services/WebHooksClient.cs",
+        "name": "WebHooksClient.cs",
+        "extension": ".cs",
+        "size": 440,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Services/WebhookClientOptions.cs",
+        "name": "WebhookClientOptions.cs",
+        "extension": ".cs",
+        "size": 206,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Services/WebhookData.cs",
+        "name": "WebhookData.cs",
+        "extension": ".cs",
+        "size": 218,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Services/WebhookResponse.cs",
+        "name": "WebhookResponse.cs",
+        "extension": ".cs",
+        "size": 196,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Services/WebhookSubscriptionRequest.cs",
+        "name": "WebhookSubscriptionRequest.cs",
+        "extension": ".cs",
+        "size": 245,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/Services/WebhookType.cs",
+        "name": "WebhookType.cs",
+        "extension": ".cs",
+        "size": 144,
+        "language": "C#"
+      },
+      {
+        "path": "src/WebhookClient/WebhookClient.csproj",
+        "name": "WebhookClient.csproj",
+        "extension": ".csproj",
+        "size": 609,
+        "language": null
+      },
+      {
+        "path": "src/WebhookClient/appsettings.Development.json",
+        "name": "appsettings.Development.json",
+        "extension": ".json",
+        "size": 119,
+        "language": "JSON"
+      },
+      {
+        "path": "src/WebhookClient/appsettings.json",
+        "name": "appsettings.json",
+        "extension": ".json",
+        "size": 227,
+        "language": "JSON"
+      },
+      {
+        "path": "src/WebhookClient/wwwroot/app.css",
+        "name": "app.css",
+        "extension": ".css",
+        "size": 3785,
+        "language": "CSS"
+      },
+      {
+        "path": "src/Webhooks.API/Apis/WebHooksApi.cs",
+        "name": "WebHooksApi.cs",
+        "extension": ".cs",
+        "size": 3083,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Exceptions/WebhooksDomainException.cs",
+        "name": "WebhooksDomainException.cs",
+        "extension": ".cs",
+        "size": 92,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Extensions/Extensions.cs",
+        "name": "Extensions.cs",
+        "extension": ".cs",
+        "size": 1114,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Extensions/RouteHandlerBuilderExtensions.cs",
+        "name": "RouteHandlerBuilderExtensions.cs",
+        "extension": ".cs",
+        "size": 1743,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/GlobalUsings.cs",
+        "name": "GlobalUsings.cs",
+        "extension": ".cs",
+        "size": 453,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Infrastructure/WebhooksContext.cs",
+        "name": "WebhooksContext.cs",
+        "extension": ".cs",
+        "size": 616,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/IntegrationEvents/OrderStatusChangedToPaidIntegrationEvent.cs",
+        "name": "OrderStatusChangedToPaidIntegrationEvent.cs",
+        "extension": ".cs",
+        "size": 179,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/IntegrationEvents/OrderStatusChangedToPaidIntegrationEventHandler.cs",
+        "name": "OrderStatusChangedToPaidIntegrationEventHandler.cs",
+        "extension": ".cs",
+        "size": 785,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/IntegrationEvents/OrderStatusChangedToShippedIntegrationEvent.cs",
+        "name": "OrderStatusChangedToShippedIntegrationEvent.cs",
+        "extension": ".cs",
+        "size": 175,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/IntegrationEvents/OrderStatusChangedToShippedIntegrationEventHandler.cs",
+        "name": "OrderStatusChangedToShippedIntegrationEventHandler.cs",
+        "extension": ".cs",
+        "size": 797,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/IntegrationEvents/OrderStockItem.cs",
+        "name": "OrderStockItem.cs",
+        "extension": ".cs",
+        "size": 102,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/IntegrationEvents/ProductPriceChangedIntegrationEvent.cs",
+        "name": "ProductPriceChangedIntegrationEvent.cs",
+        "extension": ".cs",
+        "size": 167,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/IntegrationEvents/ProductPriceChangedIntegrationEventHandler.cs",
+        "name": "ProductPriceChangedIntegrationEventHandler.cs",
+        "extension": ".cs",
+        "size": 284,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Migrations/20230925222606_Initial.Designer.cs",
+        "name": "20230925222606_Initial.Designer.cs",
+        "extension": ".cs",
+        "size": 1901,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Migrations/20230925222606_Initial.cs",
+        "name": "20230925222606_Initial.cs",
+        "extension": ".cs",
+        "size": 1502,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Migrations/WebhooksContextModelSnapshot.cs",
+        "name": "WebhooksContextModelSnapshot.cs",
+        "extension": ".cs",
+        "size": 1975,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Model/WebhookData.cs",
+        "name": "WebhookData.cs",
+        "extension": ".cs",
+        "size": 355,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Model/WebhookSubscription.cs",
+        "name": "WebhookSubscription.cs",
+        "extension": ".cs",
+        "size": 332,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Model/WebhookSubscriptionRequest.cs",
+        "name": "WebhookSubscriptionRequest.cs",
+        "extension": ".cs",
+        "size": 952,
+        "language": "C#"
+      },
+      {
+        "path": "src/Webhooks.API/Model/WebhookType.cs",
+        "name": "WebhookType.cs",
+        "extension": ".cs",
+        "size": 134,
+        "language": "C#"
+      }
+    ],
+    "dependencies": [
+      {
+        "name": "langgraph",
+        "version": "0.2.0,<1.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "langchain",
+        "version": "0.3.0,<1.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "langchain-openai",
+        "version": "0.2.0,<1.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "aiohttp",
+        "version": "3.9.0,<4.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "pydantic",
+        "version": "2.0.0,<3.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "python-dotenv",
+        "version": "1.0.0,<2.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "GitPython",
+        "version": "3.1.0,<4.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "pytest",
+        "version": "8.0.0,<9.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "pytest-asyncio",
+        "version": "0.24.0,<1.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "pytest-cov",
+        "version": "4.0.0,<5.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "mypy",
+        "version": "1.0.0,<2.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "black",
+        "version": "24.0.0,<25.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "isort",
+        "version": "5.0.0,<6.0.0",
+        "type": "pip",
+        "sourceFile": "code-processor-service/requirements.txt"
+      },
+      {
+        "name": "@playwright/test",
+        "version": "^1.42.1",
+        "type": "devDependencies",
+        "sourceFile": "package.json"
+      },
+      {
+        "name": "@types/node",
+        "version": "^20.11.25",
+        "type": "devDependencies",
+        "sourceFile": "package.json"
+      },
+      {
+        "name": "dotenv",
+        "version": "^16.4.5",
+        "type": "devDependencies",
+        "sourceFile": "package.json"
+      },
+      {
+        "name": "Aspire.StackExchange.Redis",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Basket.API/Basket.API.csproj"
+      },
+      {
+        "name": "Grpc.AspNetCore",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Basket.API/Basket.API.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Http",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "CommunityToolkit.Aspire.OllamaSharp",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "Microsoft.EntityFrameworkCore.Tools",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.ApiDescription.Server",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "Aspire.Azure.AI.OpenAI",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "Pgvector",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "Pgvector.EntityFrameworkCore",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Catalog.API/Catalog.API.csproj"
+      },
+      {
+        "name": "Google.Protobuf",
+        "version": "3.29.3",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "Grpc.Net.Client",
+        "version": "2.67.0",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "Grpc.Tools",
+        "version": "2.69.0",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "IdentityModel.OidcClient",
+        "version": "6.0.0",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls",
+        "version": "9.0.30",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls.Compatibility",
+        "version": "9.0.30",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls.Maps",
+        "version": "9.0.30",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.Logging.Debug",
+        "version": "9.0.0",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "CommunityToolkit.Maui",
+        "version": "9.1.1",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "IdentityModel",
+        "version": "7.0.0",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "CommunityToolkit.Mvvm",
+        "version": "8.3.2",
+        "type": "nuget",
+        "sourceFile": "src/ClientApp/ClientApp.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.Options",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/EventBus/EventBus.csproj"
+      },
+      {
+        "name": "Aspire.RabbitMQ.Client",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/EventBusRabbitMQ/EventBusRabbitMQ.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Components.WebView.Maui",
+        "version": "9.0.30",
+        "type": "nuget",
+        "sourceFile": "src/HybridApp/HybridApp.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls",
+        "version": "9.0.30",
+        "type": "nuget",
+        "sourceFile": "src/HybridApp/HybridApp.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls.Compatibility",
+        "version": "9.0.30",
+        "type": "nuget",
+        "sourceFile": "src/HybridApp/HybridApp.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.Http",
+        "version": "9.0.0",
+        "type": "nuget",
+        "sourceFile": "src/HybridApp/HybridApp.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.Logging.Debug",
+        "version": "9.0.0",
+        "type": "nuget",
+        "sourceFile": "src/HybridApp/HybridApp.csproj"
+      },
+      {
+        "name": "Duende.IdentityServer.AspNetIdentity",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Duende.IdentityServer.EntityFramework",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Duende.IdentityServer.Storage",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Duende.IdentityServer",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Identity.UI",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Microsoft.EntityFrameworkCore.Tools",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Microsoft.Web.LibraryManager.Build",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Identity.API/Identity.API.csproj"
+      },
+      {
+        "name": "Npgsql.EntityFrameworkCore.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/IntegrationEventLogEF/IntegrationEventLogEF.csproj"
+      },
+      {
+        "name": "Aspire.Npgsql",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/OrderProcessor/OrderProcessor.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Http",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.API/Ordering.API.csproj"
+      },
+      {
+        "name": "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.API/Ordering.API.csproj"
+      },
+      {
+        "name": "FluentValidation",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.API/Ordering.API.csproj"
+      },
+      {
+        "name": "FluentValidation.DependencyInjectionExtensions",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.API/Ordering.API.csproj"
+      },
+      {
+        "name": "Microsoft.EntityFrameworkCore.Tools",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.API/Ordering.API.csproj"
+      },
+      {
+        "name": "MediatR",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.Domain/Ordering.Domain.csproj"
+      },
+      {
+        "name": "System.Reflection.TypeExtensions",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.Domain/Ordering.Domain.csproj"
+      },
+      {
+        "name": "Npgsql.EntityFrameworkCore.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Ordering.Infrastructure/Ordering.Infrastructure.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Http.Client",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "Aspire.Azure.AI.OpenAI",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "CommunityToolkit.Aspire.OllamaSharp",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.ServiceDiscovery.Yarp",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Authentication.OpenIdConnect",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "Google.Protobuf",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "Grpc.Net.ClientFactory",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "Grpc.Tools",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebApp/WebApp.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Components.Web",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebAppComponents/WebAppComponents.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Http.Client",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebhookClient/WebhookClient.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Authentication.OpenIdConnect",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebhookClient/WebhookClient.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Components.QuickGrid",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/WebhookClient/WebhookClient.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Http",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Webhooks.API/Webhooks.API.csproj"
+      },
+      {
+        "name": "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Webhooks.API/Webhooks.API.csproj"
+      },
+      {
+        "name": "Microsoft.EntityFrameworkCore.Tools",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/Webhooks.API/Webhooks.API.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.AppHost",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.AppHost/eShop.AppHost.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.RabbitMQ",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.AppHost/eShop.AppHost.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.Redis",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.AppHost/eShop.AppHost.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.AppHost/eShop.AppHost.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.Azure.CognitiveServices",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.AppHost/eShop.AppHost.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.Yarp",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.AppHost/eShop.AppHost.csproj"
+      },
+      {
+        "name": "CommunityToolkit.Aspire.Hosting.Ollama",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.AppHost/eShop.AppHost.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Mvc.ApiExplorer",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.OpenApi",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "Microsoft.OpenApi",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "Scalar.AspNetCore",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Authentication.JwtBearer",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.Http.Resilience",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.ServiceDiscovery",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "OpenTelemetry.Exporter.OpenTelemetryProtocol",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "OpenTelemetry.Extensions.Hosting",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "OpenTelemetry.Instrumentation.AspNetCore",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "OpenTelemetry.Instrumentation.GrpcNetClient",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "OpenTelemetry.Instrumentation.Http",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "OpenTelemetry.Instrumentation.Runtime",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "src/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Mvc.Testing",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Basket.UnitTests/Basket.UnitTests.csproj"
+      },
+      {
+        "name": "Microsoft.Extensions.Identity.Stores",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Basket.UnitTests/Basket.UnitTests.csproj"
+      },
+      {
+        "name": "Microsoft.NET.Test.Sdk",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Basket.UnitTests/Basket.UnitTests.csproj"
+      },
+      {
+        "name": "MSTest.TestAdapter",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Basket.UnitTests/Basket.UnitTests.csproj"
+      },
+      {
+        "name": "MSTest.TestFramework",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Basket.UnitTests/Basket.UnitTests.csproj"
+      },
+      {
+        "name": "NSubstitute",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Basket.UnitTests/Basket.UnitTests.csproj"
+      },
+      {
+        "name": "NSubstitute.Analyzers.CSharp",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Basket.UnitTests/Basket.UnitTests.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Http.Client",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.AppHost",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Mvc.Testing",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.TestHost",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.NET.Test.Sdk",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "xunit.runner.visualstudio",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "xunit",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Catalog.FunctionalTests/Catalog.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls",
+        "version": "9.0.40",
+        "type": "nuget",
+        "sourceFile": "tests/ClientApp.UnitTests/ClientApp.UnitTests.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls.Compatibility",
+        "version": "9.0.40",
+        "type": "nuget",
+        "sourceFile": "tests/ClientApp.UnitTests/ClientApp.UnitTests.csproj"
+      },
+      {
+        "name": "Microsoft.Maui.Controls.Maps",
+        "version": "9.0.40",
+        "type": "nuget",
+        "sourceFile": "tests/ClientApp.UnitTests/ClientApp.UnitTests.csproj"
+      },
+      {
+        "name": "Microsoft.NET.Test.Sdk",
+        "version": "17.13.0",
+        "type": "nuget",
+        "sourceFile": "tests/ClientApp.UnitTests/ClientApp.UnitTests.csproj"
+      },
+      {
+        "name": "coverlet.collector",
+        "version": "6.0.4",
+        "type": "nuget",
+        "sourceFile": "tests/ClientApp.UnitTests/ClientApp.UnitTests.csproj"
+      },
+      {
+        "name": "MSTest.TestAdapter",
+        "version": "3.8.2",
+        "type": "nuget",
+        "sourceFile": "tests/ClientApp.UnitTests/ClientApp.UnitTests.csproj"
+      },
+      {
+        "name": "MSTest.TestFramework",
+        "version": "3.8.2",
+        "type": "nuget",
+        "sourceFile": "tests/ClientApp.UnitTests/ClientApp.UnitTests.csproj"
+      },
+      {
+        "name": "Asp.Versioning.Http.Client",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.AppHost",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "Aspire.Hosting.PostgreSQL",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.Mvc.Testing",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.NET.Test.Sdk",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.AspNetCore.TestHost",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "xunit.runner.visualstudio",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "xunit",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.FunctionalTests/Ordering.FunctionalTests.csproj"
+      },
+      {
+        "name": "Microsoft.NET.Test.Sdk",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.UnitTests/Ordering.UnitTests.csproj"
+      },
+      {
+        "name": "MSTest.TestAdapter",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.UnitTests/Ordering.UnitTests.csproj"
+      },
+      {
+        "name": "MSTest.TestFramework",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.UnitTests/Ordering.UnitTests.csproj"
+      },
+      {
+        "name": "NSubstitute",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.UnitTests/Ordering.UnitTests.csproj"
+      },
+      {
+        "name": "NSubstitute.Analyzers.CSharp",
+        "version": null,
+        "type": "nuget",
+        "sourceFile": "tests/Ordering.UnitTests/Ordering.UnitTests.csproj"
+      }
+    ],
+    "code_metrics": {
+      "total_files": 563,
+      "total_size_bytes": 6261976,
+      "languages_breakdown": {
+        "JSON": 46,
+        "YAML": 9,
+        "Markdown": 5,
+        "PowerShell": 2,
+        "Text": 1,
+        "Python": 22,
+        "TypeScript": 5,
+        "C#": 283,
+        "HTML": 1,
+        "JavaScript": 1,
+        "CSS": 4
+      },
+      "file_types": {
+        ".json": 46,
+        ".winget": 2,
+        ".yaml": 1,
+        ".yml": 8,
+        ".md": 5,
+        ".props": 2,
+        ".targets": 1,
+        ".ps1": 2,
+        ".example": 1,
+        ".ini": 1,
+        ".txt": 1,
+        ".py": 22,
+        ".ts": 5,
+        ".slnf": 1,
+        ".slnx": 1,
+        ".png": 7,
+        ".config": 1,
+        ".csproj": 24,
+        ".cs": 283,
+        ".proto": 1,
+        ".http": 1,
+        ".webp": 101,
+        ".xaml": 16,
+        ".sln": 2,
+        ".razor": 11,
+        ".html": 1,
+        ".cshtml": 2,
+        ".jwk": 1,
+        ".js": 1,
+        ".ico": 1,
+        ".jpg": 1,
+        ".css": 4
+      }
+    },
+    "tech_stack": [
+      "TypeScript",
+      "HTML",
+      "ASP.NET",
+      "PowerShell",
+      "PostgreSQL",
+      "GitHub Actions",
+      "Markdown",
+      "xUnit",
+      "pytest",
+      "ASP.NET Core",
+      "Entity Framework",
+      "Text",
+      "CSS",
+      "JavaScript",
+      "Python",
+      "YAML",
+      "JSON",
+      "Redis",
+      "C#"
+    ]
+  },
+  "analysis": {
+    "summary": "## Summary The `eShop` repository appears to be a multi-service application designed to simulate or implement an e-commerce platform. It includes multiple APIs (e.g., `Basket.API`, `Catalog.API`) and a code-processing service, suggesting a microservices-based architecture. The repository uses a mix of technologies, including C# for backend services, Python for auxiliary services, and TypeScript for end-to-end (E2E) testing. The presence of infrastructure-related files (e.g., `.config`, `.devcenter`) and CI/CD workflows indicates a focus on automation and deployment.",
+    "insights": [
+      "**Microservices Architecture**: The repository is organized into distinct services (`Basket.API`, `Catalog.API`, `code-processor-service`), each with its own domain logic and configuration.",
+      "**Event-Driven Design**: The `Catalog.API` includes integration event services, suggesting the use of event-driven communication between services.",
+      "**Modular Design**: Each service is self-contained with its own models, extensions, and configurations, promoting modularity and separation of concerns.",
+      "**Backend**: C# is used for core APIs, leveraging .NET for high-performance and scalable web services.",
+      "**Auxiliary Services**: Python is used in the `code-processor-service`, likely for tasks such as code analysis or metadata extraction.",
+      "**Frontend/Testing**: TypeScript is used for E2E tests with Playwright, indicating a focus on automated UI testing.",
+      "**Infrastructure**: PowerShell scripts and YAML files are used for build and deployment automation.",
+      "**Data Storage**: Redis is used in the `Basket.API` for managing customer baskets, indicating a preference for in-memory data storage for performance.",
+      "**Well-Defined Services**: Each service has a clear structure with folders for models, repositories, extensions, and configurations.",
+      "**Testing**: Unit tests are present for the `code-processor-service` and some APIs, demonstrating a commitment to code quality.",
+      "**Configuration Management**: The repository uses JSON and YAML files for managing configurations, including environment-specific settings.",
+      "**CI/CD**: GitHub Actions workflows are defined for tasks such as linting, validation, and Playwright tests.",
+      "**Event Integration**: The `Catalog.API` includes integration event services, which could be used for real-time updates or inter-service communication.",
+      "**E2E Testing**: Playwright tests (`AddItemTest`, `BrowseItemTest`, `RemoveItemTest`) ensure the functionality of critical user flows.",
+      "**Code Analysis**: The `code-processor-service` includes tools for analyzing and formatting code, which could be used for static analysis or developer productivity.",
+      "Medium-sized codebase with 563 files",
+      "Multi-language project using 11 languages - ensure consistent coding standards across languages",
+      "Primary language is C# (283 files)",
+      "Uses frameworks: ASP.NET, ASP.NET Core"
+    ],
+    "recommendations": [
+      "Review generated metadata for accuracy"
+    ]
+  },
+  "issues": {
+    "summary": {
+      "total_open_issues": 0,
+      "total_closed_issues": 0,
+      "total_prs": 1
+    },
+    "categorized_issues": {
+      "bugs": [],
+      "features": [],
+      "enhancements": [],
+      "documentation": [],
+      "questions": [],
+      "other": []
+    },
+    "metadata": {
+      "code_owners": [],
+      "active_contributors": [
+        "Copilot"
+      ],
+      "affected_services": [],
+      "common_technologies": [],
+      "issue_labels": {}
+    },
+    "patterns": {
+      "common_bug_areas": [],
+      "frequent_feature_requests": [],
+      "pain_points": [
+        "No issues have been reported across all categories, indicating either low engagement or a lack of active issue tracking.",
+        "Despite a diverse set of technologies and contributors, there is minimal issue labeling and categorization."
+      ],
+      "improvement_opportunities": [
+        "Encourage contributors to report and categorize issues to better identify areas for improvement.",
+        "Increase usage of issue labels to facilitate pattern analysis and prioritization.",
+        "Review and update documentation or onboarding to ensure contributors know how to submit issues."
+      ]
+    },
+    "recent_activity": {
+      "recent_issues": [],
+      "recent_prs": [
+        {
+          "number": 1,
+          "title": "Add Code Processor Service with LangGraph, GitHub MCP, and Azure OpenAI GPT-4o",
+          "created_at": "2025-11-26T20:47:24Z"
+        }
+      ]
+    }
+  }
+}

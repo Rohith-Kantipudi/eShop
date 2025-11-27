@@ -1,9 +1,4 @@
-"""
-LangGraph workflow definition for code processing.
 
-This module defines the main workflow graph that orchestrates
-the code processing pipeline using LangGraph.
-"""
 
 from typing import Optional
 
@@ -17,13 +12,6 @@ from ..processors import MetadataExtractor, CodeAnalyzer, JsonFormatter
 
 
 class CodeProcessorWorkflow:
-    """
-    LangGraph-based workflow for processing repository code metadata.
-    
-    This class creates and manages a StateGraph that orchestrates
-    the code processing pipeline with conditional routing.
-    """
-    
     def __init__(
         self,
         mcp_client: GitHubMCPClient,
@@ -32,16 +20,6 @@ class CodeProcessorWorkflow:
         code_analyzer: Optional[CodeAnalyzer] = None,
         json_formatter: Optional[JsonFormatter] = None
     ):
-        """
-        Initialize the workflow with required dependencies.
-        
-        Args:
-            mcp_client: GitHub MCP client for repository access
-            llm_client: Azure OpenAI client for LLM operations
-            metadata_extractor: Optional custom metadata extractor
-            code_analyzer: Optional custom code analyzer
-            json_formatter: Optional custom JSON formatter
-        """
         self.mcp_client = mcp_client
         self.llm_client = llm_client
         self.metadata_extractor = metadata_extractor or MetadataExtractor()
@@ -61,12 +39,6 @@ class CodeProcessorWorkflow:
         self._graph = self._build_graph()
 
     def _build_graph(self) -> StateGraph:
-        """
-        Build the LangGraph StateGraph for code processing.
-        
-        Returns:
-            Compiled StateGraph ready for execution
-        """
         # Create a new StateGraph with ProcessorState
         workflow = StateGraph(ProcessorState)
         
@@ -114,16 +86,6 @@ class CodeProcessorWorkflow:
         return workflow.compile()
 
     async def process(self, repo_owner: str, repo_name: str) -> ProcessorState:
-        """
-        Execute the workflow to process a repository.
-        
-        Args:
-            repo_owner: The GitHub repository owner
-            repo_name: The GitHub repository name
-            
-        Returns:
-            Final ProcessorState with all extracted metadata and analysis
-        """
         # Create initial state
         initial_state = create_initial_state(repo_owner, repo_name)
         
@@ -133,10 +95,4 @@ class CodeProcessorWorkflow:
         return final_state
 
     def get_graph(self) -> StateGraph:
-        """
-        Get the compiled workflow graph.
-        
-        Returns:
-            The compiled StateGraph
-        """
         return self._graph

@@ -6,6 +6,7 @@ to extract insights, summaries, and recommendations.
 """
 
 from typing import Any, TYPE_CHECKING
+from langchain_core.messages import HumanMessage, SystemMessage
 
 if TYPE_CHECKING:
     from ..llm import AzureOpenAIClient
@@ -23,7 +24,9 @@ class CodeAnalyzer:
         self,
         repository: dict[str, Any],
         metadata: dict[str, Any],
-        llm_client: "AzureOpenAIClient"
+        llm_client: "AzureOpenAIClient",
+        issues: dict[str, Any],
+        mcp_client: Any
     ) -> dict[str, Any]:
         """
         Analyze repository code and generate insights.
@@ -32,6 +35,8 @@ class CodeAnalyzer:
             repository: Repository information dictionary
             metadata: Extracted metadata dictionary
             llm_client: Azure OpenAI client
+            issues: GitHub issues data
+            mcp_client: MCP client to fetch actual code
             
         Returns:
             Analysis result with summary, insights, and recommendations
@@ -41,6 +46,7 @@ class CodeAnalyzer:
         dependencies = metadata.get("dependencies", [])
         tech_stack = metadata.get("tech_stack", [])
         code_metrics = metadata.get("code_metrics", {})
+        services = metadata.get("services", [])
         
         # Generate summary using LLM
         summary_result = await llm_client.summarize_repository(
@@ -48,6 +54,18 @@ class CodeAnalyzer:
             file_structure=file_list,
             readme_content=repository.get("readme")
         )
+        
+        # Analyze services with actual code (enterprise-level)
+        analyzed_services = []
+        if services and mcp_client:
+            print(f"\n=== ANALYZING {len(services)} SERVICES ===")
+            analyzed_services = await self._analyze_services(
+                services, 
+                repository.get("owner"), 
+                repository.get("name"),
+                mcp_client,
+                llm_client
+            )
         
         # Enhance with code metrics analysis
         analysis = {
@@ -59,10 +77,113 @@ class CodeAnalyzer:
             ),
             "recommendations": summary_result.get("recommendations", []) + self._generate_recommendations(
                 metadata
-            )
+            ),
+            "services": analyzed_services
         }
         
         return analysis
+
+    async def _analyze_services(
+        self,
+        services: list[dict[str, Any]],
+        owner: str,
+        repo: str,
+        mcp_client: Any,
+        llm_client: "AzureOpenAIClient"
+    ) -> list[dict[str, Any]]:
+        """Analyze services by fetching and examining actual code."""
+        analyzed = []
+        
+        for service in services:
+            service_name = service.get("name")
+            service_path = f"src/{service_name}"
+            
+            print(f"\nAnalyzing service: {service_name}")
+            
+            # Fetch actual files from the service
+            service_files = await mcp_client.get_service_files(
+                owner, repo, service_path, max_files=10
+            )
+            
+            if service_files:
+                print(f"  Fetched {len(service_files)} files: {[f['name'] for f in service_files]}")
+                
+                # Let LLM analyze the actual code
+                analysis = await self._llm_analyze_service(
+                    service_name,
+                    service_files,
+                    service.get("file_extensions", []),
+                    service.get("dependencies", []),
+                    llm_client
+                )
+                
+                analyzed.append({
+                    **service,
+                    "description": analysis.get("description", ""),
+                    "technologies": analysis.get("technologies", []),
+                    "type": analysis.get("type", service.get("type", "service"))
+                })
+            else:
+                # No files fetched, use basic info
+                analyzed.append(service)
+        
+        return analyzed
+
+    async def _llm_analyze_service(
+        self,
+        service_name: str,
+        files: list[dict[str, Any]],
+        file_extensions: list[str],
+        dependencies: list[str],
+        llm_client: "AzureOpenAIClient"
+    ) -> dict[str, Any]:
+        """Use LLM to analyze service from actual code files."""
+        # Build context from actual files
+        files_context = []
+        for file in files[:8]:
+            files_context.append(f"File: {file['name']}\n```\n{file['content'][:1000]}\n```")
+        
+        prompt = f"""Analyze this microservice from its actual source code and return ONLY valid JSON.
+
+Service Name: {service_name}
+File Extensions: {', '.join(file_extensions)}
+Dependencies: {', '.join(dependencies[:10])}
+
+Actual Code Files:
+{chr(10).join(files_context)}
+
+Return ONLY this JSON structure (no markdown, no explanation):
+{{
+  "description": "Detailed technical description (700-900 chars) of what this service does",
+  "technologies": ["list", "of", "technologies"],
+  "type": "api or webapp or worker or library or service"
+}}"""
+
+        try:
+            response = await llm_client._client.ainvoke([
+                SystemMessage(content="You are an expert software architect. Return ONLY valid JSON, no markdown formatting."),
+                HumanMessage(content=prompt)
+            ])
+            
+            import json
+            content = response.content.strip()
+            # Remove markdown code blocks if present
+            if content.startswith("```"):
+                content = content.split("```")[1]
+                if content.startswith("json"):
+                    content = content[4:]
+                content = content.strip()
+            
+            result = json.loads(content)
+            return result
+            
+        except Exception as e:
+            print(f"  LLM analysis failed: {str(e)}")
+            return {
+                "description": f"{service_name} service",
+                "technologies": [],
+                "type": "service"
+            }
 
     def _generate_fallback_summary(
         self,

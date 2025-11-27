@@ -1,10 +1,4 @@
-"""
-Metadata extractor for repository analysis.
 
-This module provides functionality to extract metadata from
-repository files, including dependencies, code metrics, and
-technology stack information.
-"""
 
 import os
 import re
@@ -15,14 +9,6 @@ if TYPE_CHECKING:
 
 
 class MetadataExtractor:
-    """
-    Extracts metadata from repository files.
-    
-    This class processes repository files to extract various types
-    of metadata including file information, dependencies, and
-    code metrics.
-    """
-    
     # File extension to language mapping
     LANGUAGE_MAP = {
         ".py": "Python",
@@ -78,6 +64,64 @@ class MetadataExtractor:
         "packages.config": "nuget",
     }
 
+    def extract_services(self, files: list[dict[str, Any]], dependencies: list[dict[str, Any]] = None) -> list[dict[str, Any]]:
+        services = {}
+        dependencies = dependencies or []
+        
+        for file in files:
+            path = file.get("path", "")
+            parts = path.split("/")
+            
+            # Look for service indicators in src/ directory
+            if len(parts) >= 2 and parts[0] == "src":
+                service_name = parts[1]
+                if service_name not in services:
+                    services[service_name] = {
+                        "name": service_name,
+                        "technologies": set(),
+                        "dependencies": [],
+                        "type": "library",
+                        "port": None,
+                        "files": []
+                    }
+                
+                services[service_name]["files"].append(file)
+        
+        # Analyze each service
+        result = []
+        for service_name, service_data in services.items():
+            service_files = service_data["files"]
+            
+            # Basic service detection - let LLM handle detailed analysis
+            service_type = "service"
+            
+            # Just collect file extensions and names - LLM will analyze the actual content
+            file_extensions = set()
+            key_files = []
+            
+            for file in service_files:
+                filename = file.get("name", "")
+                ext = os.path.splitext(filename)[1]
+                if ext:
+                    file_extensions.add(ext)
+                
+                # Track important filenames for LLM analysis
+                key_files.append(filename)
+            
+            # Get dependencies for this service
+            service_deps = [d for d in dependencies if d.get("source_file", "").startswith(f"src/{service_name}")]
+            
+            result.append({
+                "name": service_name,
+                "file_extensions": sorted(list(file_extensions)),
+                "key_files": key_files[:20],  # Limit to top 20 files
+                "dependencies": [d.get("name") for d in service_deps[:15]],
+                "type": service_type,
+                "file_count": len(service_files)
+            })
+        
+        return result
+    
     async def extract_files_metadata(
         self,
         files: list[dict[str, Any]],
@@ -85,18 +129,6 @@ class MetadataExtractor:
         owner: str,
         repo: str
     ) -> list[dict[str, Any]]:
-        """
-        Extract metadata from repository files.
-        
-        Args:
-            files: List of file information dictionaries
-            mcp_client: GitHub MCP client
-            owner: Repository owner
-            repo: Repository name
-            
-        Returns:
-            List of file metadata dictionaries
-        """
         file_metadata = []
         
         for file_info in files:
@@ -135,18 +167,6 @@ class MetadataExtractor:
         owner: str,
         repo: str
     ) -> list[dict[str, Any]]:
-        """
-        Extract dependencies from repository files.
-        
-        Args:
-            files: List of file information dictionaries
-            mcp_client: GitHub MCP client
-            owner: Repository owner
-            repo: Repository name
-            
-        Returns:
-            List of dependency information dictionaries
-        """
         dependencies = []
         
         for file_info in files:
@@ -168,7 +188,6 @@ class MetadataExtractor:
         return dependencies
 
     def _get_dependency_type(self, filename: str) -> str | None:
-        """Determine the dependency manager type from filename."""
         for pattern, dep_type in self.DEPENDENCY_PATTERNS.items():
             if pattern.startswith("*"):
                 if filename.endswith(pattern[1:]):
@@ -183,7 +202,6 @@ class MetadataExtractor:
         dep_type: str,
         source_file: str
     ) -> list[dict[str, Any]]:
-        """Parse dependencies from file content."""
         dependencies = []
         
         if dep_type == "npm":
@@ -202,7 +220,6 @@ class MetadataExtractor:
         content: str,
         source_file: str
     ) -> list[dict[str, Any]]:
-        """Parse npm package.json dependencies."""
         import json
         
         dependencies = []
@@ -228,7 +245,6 @@ class MetadataExtractor:
         content: str,
         source_file: str
     ) -> list[dict[str, Any]]:
-        """Parse pip requirements.txt dependencies."""
         dependencies = []
         
         for line in content.split("\n"):
@@ -261,7 +277,6 @@ class MetadataExtractor:
         content: str,
         source_file: str
     ) -> list[dict[str, Any]]:
-        """Parse NuGet dependencies from .csproj or Directory.Packages.props."""
         dependencies = []
         
         # Parse PackageReference elements
@@ -285,7 +300,6 @@ class MetadataExtractor:
         content: str,
         source_file: str
     ) -> list[dict[str, Any]]:
-        """Parse Go module dependencies."""
         dependencies = []
         
         # Parse require statements
@@ -318,15 +332,6 @@ class MetadataExtractor:
         self,
         files_metadata: list[dict[str, Any]]
     ) -> dict[str, Any]:
-        """
-        Calculate code metrics from file metadata.
-        
-        Args:
-            files_metadata: List of file metadata dictionaries
-            
-        Returns:
-            Code metrics dictionary
-        """
         total_files = len(files_metadata)
         total_size = sum(f.get("size", 0) for f in files_metadata)
         
@@ -356,16 +361,6 @@ class MetadataExtractor:
         files_metadata: list[dict[str, Any]],
         dependencies: list[dict[str, Any]]
     ) -> list[dict[str, Any]]:
-        """
-        Identify technology stack from files and dependencies.
-        
-        Args:
-            files_metadata: List of file metadata dictionaries
-            dependencies: List of dependency dictionaries
-            
-        Returns:
-            List of technology stack items
-        """
         tech_stack = []
         seen = set()
         

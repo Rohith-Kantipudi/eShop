@@ -1,9 +1,4 @@
-"""
-MCP tool wrappers for GitHub operations.
 
-This module provides high-level tool wrappers for common GitHub
-operations using the MCP protocol.
-"""
 
 from typing import Any, Optional
 
@@ -11,20 +6,7 @@ from .client import GitHubMCPClient
 
 
 class MCPTools:
-    """
-    High-level tools for GitHub operations via MCP.
-    
-    This class provides convenient wrappers for common repository
-    operations, abstracting the low-level MCP client operations.
-    """
-    
     def __init__(self, client: GitHubMCPClient):
-        """
-        Initialize MCP tools.
-        
-        Args:
-            client: GitHub MCP client instance
-        """
         self.client = client
 
     async def read_repository_structure(
@@ -33,17 +15,6 @@ class MCPTools:
         repo: str,
         include_content_preview: bool = False
     ) -> dict[str, Any]:
-        """
-        Read complete repository structure with optional content previews.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            include_content_preview: Whether to include file content previews
-            
-        Returns:
-            Complete repository structure
-        """
         # Get basic structure
         structure = await self.client.get_file_structure(owner, repo)
         
@@ -68,17 +39,6 @@ class MCPTools:
         repo: str,
         paths: list[str]
     ) -> dict[str, str]:
-        """
-        Access contents of multiple files.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            paths: List of file paths to read
-            
-        Returns:
-            Dictionary mapping paths to contents
-        """
         contents = {}
         
         for path in paths:
@@ -95,16 +55,6 @@ class MCPTools:
         owner: str,
         repo: str
     ) -> dict[str, Any]:
-        """
-        Query comprehensive repository metadata.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            
-        Returns:
-            Comprehensive repository metadata
-        """
         repo_info = await self.client.get_repository_info(owner, repo)
         readme = await self.client.get_repository_readme(owner, repo)
         
@@ -119,17 +69,6 @@ class MCPTools:
         repo: str,
         queries: list[str]
     ) -> dict[str, list[dict[str, Any]]]:
-        """
-        Search code with multiple semantic queries.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            queries: List of search queries
-            
-        Returns:
-            Dictionary mapping queries to results
-        """
         results = {}
         
         for query in queries:
@@ -143,16 +82,6 @@ class MCPTools:
         owner: str,
         repo: str
     ) -> dict[str, Optional[str]]:
-        """
-        Get contents of common dependency files.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            
-        Returns:
-            Dictionary mapping dependency file names to contents
-        """
         dependency_files = [
             "package.json",
             "requirements.txt",

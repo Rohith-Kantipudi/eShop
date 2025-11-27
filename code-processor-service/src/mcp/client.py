@@ -1,9 +1,4 @@
-"""
-GitHub MCP (Model Context Protocol) client.
 
-This module provides a client for interacting with the GitHub MCP server
-to access repository information, file contents, and metadata.
-"""
 
 import os
 from typing import Any, Optional
@@ -15,28 +10,11 @@ load_dotenv()
 
 
 class GitHubMCPClient:
-    """
-    Client for GitHub MCP server interactions.
-    
-    This client provides methods to interact with GitHub repositories
-    through the MCP protocol, including reading file structures,
-    accessing contents, and querying metadata.
-    """
-    
     def __init__(
         self,
         github_token: Optional[str] = None,
         mcp_server_url: Optional[str] = None
     ):
-        """
-        Initialize the GitHub MCP client.
-        
-        Args:
-            github_token: GitHub personal access token. If not provided,
-                         reads from GITHUB_TOKEN environment variable.
-            mcp_server_url: URL of the MCP server. If not provided,
-                           reads from MCP_SERVER_URL environment variable.
-        """
         self.github_token = github_token or os.getenv("GITHUB_TOKEN")
         self.mcp_server_url = mcp_server_url or os.getenv("MCP_SERVER_URL")
         self.base_url = "https://api.github.com"
@@ -46,9 +24,33 @@ class GitHubMCPClient:
                 "GitHub token is required. Set GITHUB_TOKEN environment variable "
                 "or pass github_token parameter."
             )
+    
+    async def get_issues(
+        self,
+        owner: str,
+        repo: str,
+        state: str = "all",
+        per_page: int = 100
+    ) -> dict[str, Any]:
+        async with aiohttp.ClientSession() as session:
+            issues = []
+            prs = []
+            
+            url = f"{self.base_url}/repos/{owner}/{repo}/issues"
+            params = {"state": state, "per_page": per_page}
+            
+            async with session.get(url, headers=self._get_headers(), params=params) as response:
+                if response.status == 200:
+                    all_issues = await response.json()
+                    for item in all_issues:
+                        if "pull_request" in item:
+                            prs.append(item)
+                        else:
+                            issues.append(item)
+            
+            return {"issues": issues, "pull_requests": prs}
 
     def _get_headers(self) -> dict[str, str]:
-        """Get HTTP headers for GitHub API requests."""
         return {
             "Authorization": f"token {self.github_token}",
             "Accept": "application/vnd.github.v3+json",
@@ -60,16 +62,6 @@ class GitHubMCPClient:
         owner: str,
         repo: str
     ) -> dict[str, Any]:
-        """
-        Get repository information.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            
-        Returns:
-            Dictionary containing repository information
-        """
         async with aiohttp.ClientSession() as session:
             # Get repository metadata
             url = f"{self.base_url}/repos/{owner}/{repo}"
@@ -77,6 +69,11 @@ class GitHubMCPClient:
                 if response.status != 200:
                     raise Exception(f"Failed to get repository info: {response.status}")
                 repo_data = await response.json()
+            
+            # Get contributors
+            url = f"{self.base_url}/repos/{owner}/{repo}/contributors"
+            async with session.get(url, headers=self._get_headers()) as response:
+                contributors = await response.json() if response.status == 200 else []
             
             # Get languages
             languages_url = f"{self.base_url}/repos/{owner}/{repo}/languages"
@@ -108,19 +105,6 @@ class GitHubMCPClient:
         recursive: bool = True,
         max_depth: int = 3
     ) -> dict[str, Any]:
-        """
-        Get repository file structure.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            path: Path within the repository (default: root)
-            recursive: Whether to fetch recursively
-            max_depth: Maximum depth for recursive fetching
-            
-        Returns:
-            Dictionary containing file structure
-        """
         files = []
         directories = []
         
@@ -156,7 +140,6 @@ class GitHubMCPClient:
         max_depth: int,
         current_depth: int
     ) -> None:
-        """Recursively fetch repository contents."""
         url = f"{self.base_url}/repos/{owner}/{repo}/contents/{path}"
         
         async with session.get(url, headers=self._get_headers()) as response:
@@ -196,23 +179,90 @@ class GitHubMCPClient:
                             current_depth + 1
                         )
 
+    async def get_service_files(
+        self,
+        owner: str,
+        repo: str,
+        service_path: str,
+        max_files: int = 10
+    ) -> list[dict[str, Any]]:
+        key_files = []
+        
+        async with aiohttp.ClientSession() as session:
+            url = f"{self.base_url}/repos/{owner}/{repo}/contents/{service_path}"
+            async with session.get(url, headers=self._get_headers()) as response:
+                if response.status != 200:
+                    return []
+                
+                items = await response.json()
+                if not isinstance(items, list):
+                    items = [items]
+                
+                # Smart file prioritization based on importance
+                prioritized_files = []
+                
+                # Categorize files by importance
+                for item in items:
+                    if item["type"] == "file":
+                        name = item["name"]
+                        ext = os.path.splitext(name)[1].lower()
+                        
+                        # Priority scoring: higher = more important
+                        priority = 0
+                        
+                        # Main entry points (highest priority)
+                        if name.lower() in ["main", "index", "app", "server", "program", "startup", "application"]:
+                            priority = 100
+                        elif "main" in name.lower() or "app" in name.lower() or "server" in name.lower():
+                            priority = 90
+                        
+                        # Configuration files
+                        elif name.lower() in ["dockerfile", "docker-compose.yml", ".env", "config.json", "config.yaml", 
+                                            "appsettings.json", "application.properties", "application.yml"]:
+                            priority = 80
+                        
+                        # Package/dependency files
+                        elif ext in [".json", ".toml", ".xml", ".lock", ".mod"] or name in ["gemfile", "pipfile"]:
+                            priority = 70
+                        
+                        # Source code files
+                        elif ext in [".cs", ".js", ".ts", ".py", ".java", ".go", ".rs", ".rb", ".php", ".cpp", ".c"]:
+                            priority = 60
+                        
+                        # Documentation
+                        elif ext in [".md", ".txt", ".rst"]:
+                            priority = 50
+                        
+                        # Everything else
+                        else:
+                            priority = 40
+                        
+                        prioritized_files.append((priority, item))
+                
+                # Sort by priority (descending) and fetch top files
+                prioritized_files.sort(key=lambda x: x[0], reverse=True)
+                
+                for priority, item in prioritized_files[:max_files]:
+                    try:
+                        content = await self.get_file_content(owner, repo, item["path"])
+                        if content:
+                            key_files.append({
+                                "path": item["path"],
+                                "name": item["name"],
+                                "content": content[:5000]  # Limit to avoid token overflow
+                            })
+                    except Exception:
+                        # Skip files that can't be read
+                        continue
+        
+        return key_files
+    
     async def get_file_content(
         self,
         owner: str,
         repo: str,
         path: str
     ) -> str:
-        """
-        Get the content of a specific file.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            path: Path to the file
-            
-        Returns:
-            File content as string
-        """
         async with aiohttp.ClientSession() as session:
             url = f"{self.base_url}/repos/{owner}/{repo}/contents/{path}"
             async with session.get(url, headers=self._get_headers()) as response:
@@ -244,17 +294,6 @@ class GitHubMCPClient:
         repo: str,
         query: str
     ) -> list[dict[str, Any]]:
-        """
-        Search for code in the repository.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            query: Search query
-            
-        Returns:
-            List of matching code items
-        """
         async with aiohttp.ClientSession() as session:
             url = f"{self.base_url}/search/code"
             params = {
@@ -277,16 +316,6 @@ class GitHubMCPClient:
         owner: str,
         repo: str
     ) -> Optional[str]:
-        """
-        Get the repository README content.
-        
-        Args:
-            owner: Repository owner
-            repo: Repository name
-            
-        Returns:
-            README content or None if not found
-        """
         async with aiohttp.ClientSession() as session:
             url = f"{self.base_url}/repos/{owner}/{repo}/readme"
             async with session.get(url, headers=self._get_headers()) as response:

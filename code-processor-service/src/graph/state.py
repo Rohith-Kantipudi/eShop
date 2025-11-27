@@ -1,15 +1,9 @@
-"""
-State definitions for the LangGraph workflow.
 
-This module defines the ProcessorState TypedDict that holds all
-the state information passed between processing nodes.
-"""
 
 from typing import TypedDict, Optional, Any
 
 
 class RepositoryInfo(TypedDict, total=False):
-    """Repository information structure."""
     name: str
     owner: str
     description: Optional[str]
@@ -19,7 +13,6 @@ class RepositoryInfo(TypedDict, total=False):
 
 
 class FileMetadata(TypedDict, total=False):
-    """Individual file metadata structure."""
     path: str
     name: str
     extension: str
@@ -29,7 +22,6 @@ class FileMetadata(TypedDict, total=False):
 
 
 class DependencyInfo(TypedDict, total=False):
-    """Dependency information structure."""
     name: str
     version: Optional[str]
     type: str  # e.g., "nuget", "npm", "pip"
@@ -37,7 +29,6 @@ class DependencyInfo(TypedDict, total=False):
 
 
 class CodeMetrics(TypedDict, total=False):
-    """Code metrics structure."""
     total_files: int
     total_lines: int
     languages_breakdown: dict[str, int]
@@ -45,21 +36,18 @@ class CodeMetrics(TypedDict, total=False):
 
 
 class TechStackItem(TypedDict, total=False):
-    """Technology stack item structure."""
     name: str
     category: str  # e.g., "framework", "library", "tool"
     version: Optional[str]
 
 
 class AnalysisResult(TypedDict, total=False):
-    """Analysis result structure."""
     summary: str
     insights: list[str]
     recommendations: list[str]
 
 
 class MetadataOutput(TypedDict, total=False):
-    """Complete metadata output structure."""
     files: list[FileMetadata]
     dependencies: list[DependencyInfo]
     code_metrics: CodeMetrics
@@ -67,12 +55,6 @@ class MetadataOutput(TypedDict, total=False):
 
 
 class ProcessorState(TypedDict, total=False):
-    """
-    Main state object for the LangGraph workflow.
-    
-    This TypedDict holds all the state information that is passed
-    between processing nodes in the workflow.
-    """
     # Input parameters
     repo_owner: str
     repo_name: str
@@ -93,6 +75,9 @@ class ProcessorState(TypedDict, total=False):
     # LLM analysis results
     analysis: AnalysisResult
     
+    # GitHub issues and PRs
+    issues: dict[str, Any]
+    
     # Final output
     json_output: str
     
@@ -105,16 +90,6 @@ class ProcessorState(TypedDict, total=False):
 
 
 def create_initial_state(repo_owner: str, repo_name: str) -> ProcessorState:
-    """
-    Create an initial ProcessorState with default values.
-    
-    Args:
-        repo_owner: The GitHub repository owner
-        repo_name: The GitHub repository name
-        
-    Returns:
-        A ProcessorState with initialized default values
-    """
     return ProcessorState(
         repo_owner=repo_owner,
         repo_name=repo_name,

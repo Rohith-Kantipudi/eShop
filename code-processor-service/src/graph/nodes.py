@@ -1,9 +1,4 @@
-"""
-Processing nodes for the LangGraph workflow.
 
-This module defines the individual processing nodes that perform
-specific tasks in the code processing pipeline.
-"""
 
 from typing import TYPE_CHECKING
 
@@ -16,13 +11,6 @@ if TYPE_CHECKING:
 
 
 class ProcessingNodes:
-    """
-    Collection of processing nodes for the LangGraph workflow.
-    
-    Each method represents a node in the workflow graph and takes
-    the current state as input, returning an updated state.
-    """
-    
     def __init__(
         self,
         mcp_client: "GitHubMCPClient",
@@ -31,16 +19,6 @@ class ProcessingNodes:
         code_analyzer: "CodeAnalyzer",
         json_formatter: "JsonFormatter"
     ):
-        """
-        Initialize the processing nodes with required dependencies.
-        
-        Args:
-            mcp_client: GitHub MCP client for repository access
-            llm_client: Azure OpenAI client for LLM operations
-            metadata_extractor: Metadata extraction processor
-            code_analyzer: Code analysis processor
-            json_formatter: JSON formatting processor
-        """
         self.mcp_client = mcp_client
         self.llm_client = llm_client
         self.metadata_extractor = metadata_extractor
@@ -48,18 +26,6 @@ class ProcessingNodes:
         self.json_formatter = json_formatter
 
     async def analyze_repository(self, state: ProcessorState) -> ProcessorState:
-        """
-        Node: Analyze repository structure and basic information.
-        
-        This node fetches repository metadata, file structure, and
-        language information from GitHub.
-        
-        Args:
-            state: Current processor state
-            
-        Returns:
-            Updated state with repository information
-        """
         try:
             state["current_stage"] = "repository_analysis"
             
@@ -74,6 +40,17 @@ class ProcessingNodes:
                 state["repo_owner"],
                 state["repo_name"]
             )
+            
+            # Get GitHub issues and PRs
+            try:
+                issues_data = await self.mcp_client.get_issues(
+                    state["repo_owner"],
+                    state["repo_name"]
+                )
+                state["issues"] = issues_data
+            except Exception as e:
+                print(f"Warning: Could not fetch issues: {e}")
+                state["issues"] = {"issues": [], "pull_requests": []}
             
             # Update state with repository information
             state["repository"] = {
@@ -94,18 +71,6 @@ class ProcessingNodes:
         return state
 
     async def extract_metadata(self, state: ProcessorState) -> ProcessorState:
-        """
-        Node: Extract metadata from repository files.
-        
-        This node processes files to extract dependencies, code metrics,
-        and technology stack information.
-        
-        Args:
-            state: Current processor state
-            
-        Returns:
-            Updated state with extracted metadata
-        """
         try:
             state["current_stage"] = "metadata_extraction"
             
@@ -136,12 +101,19 @@ class ProcessingNodes:
                 dependencies
             )
             
+            # Extract services structure with dependencies
+            services = self.metadata_extractor.extract_services(
+                state["raw_files"],
+                dependencies
+            )
+            
             # Update state with metadata
             state["metadata"] = {
                 "files": files_metadata,
                 "dependencies": dependencies,
                 "code_metrics": code_metrics,
-                "tech_stack": tech_stack
+                "tech_stack": tech_stack,
+                "services": services
             }
             
         except Exception as e:
@@ -151,26 +123,16 @@ class ProcessingNodes:
         return state
 
     async def format_data(self, state: ProcessorState) -> ProcessorState:
-        """
-        Node: Format extracted data for analysis.
-        
-        This node prepares the data for LLM analysis by organizing
-        and summarizing the extracted information.
-        
-        Args:
-            state: Current processor state
-            
-        Returns:
-            Updated state with formatted data
-        """
         try:
             state["current_stage"] = "data_formatting"
             
-            # Analyze code with LLM assistance
+            # Enterprise analysis: Pass MCP client to fetch actual code
             analysis = await self.code_analyzer.analyze(
                 state["repository"],
                 state["metadata"],
-                self.llm_client
+                self.llm_client,
+                state.get("issues", {"issues": [], "pull_requests": []}),
+                self.mcp_client  # Pass MCP to fetch actual files
             )
             
             state["analysis"] = analysis
@@ -182,18 +144,6 @@ class ProcessingNodes:
         return state
 
     async def generate_json(self, state: ProcessorState) -> ProcessorState:
-        """
-        Node: Generate final JSON output.
-        
-        This node combines all extracted metadata and analysis into
-        the final JSON output format.
-        
-        Args:
-            state: Current processor state
-            
-        Returns:
-            Updated state with JSON output
-        """
         try:
             state["current_stage"] = "json_generation"
             
@@ -201,7 +151,8 @@ class ProcessingNodes:
             json_output = self.json_formatter.format(
                 repository=state["repository"],
                 metadata=state["metadata"],
-                analysis=state["analysis"]
+                analysis=state["analysis"],
+                issues=state.get("issues")
             )
             
             state["json_output"] = json_output
@@ -215,15 +166,6 @@ class ProcessingNodes:
 
 
 def should_continue(state: ProcessorState) -> str:
-    """
-    Conditional edge function to determine workflow continuation.
-    
-    Args:
-        state: Current processor state
-        
-    Returns:
-        "continue" if processing should continue, "end" otherwise
-    """
     if not state.get("should_continue", True):
         return "end"
     if state.get("is_complete", False):
